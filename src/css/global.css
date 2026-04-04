@@ -1,0 +1,391 @@
+/* ============================================================
+   Caribbean Ocean Resort & Spa — Global Styles
+   Design tokens, typography, reset, and reusable component styles.
+   Source: .agents/skills/design_standards/01-tokens.md
+   ============================================================ */
+
+/* ── Design Tokens ────────────────────────────────────────── */
+
+:root {
+  /* Layout Colors */
+  --admin-nav-bg: #0C3D52;
+  --admin-content-bg: #F5F0E8;
+  --admin-card-bg: #FDFCFA;
+  --admin-card-dark: #071E28;
+  --admin-table-header: #F5F0E8;
+  --admin-topbar-bg: #FDFCFA;
+  --admin-topbar-border: rgba(201, 184, 120, 0.4);
+
+  /* Brand Colors */
+  --color-ocean-deep: #0C3D52;
+  --color-caribbean-teal: #1D9E75;
+  --color-sand-white: #F5F0E8;
+  --color-pearl-white: #FDFCFA;
+  --color-deep-night: #071E28;
+  --color-coral-sunset: #D85A30;
+  --color-golden-sand: #C9B878;
+
+  /* Text Colors */
+  --color-text-primary: #1A1A1A;
+  --color-text-secondary: #6B6B6B;
+  --color-text-light: #FDFCFA;
+  --color-text-muted-light: #A8C4CE;
+
+  /* Stat Bar Colors */
+  --stat-total: #D85A30;
+  --stat-premium: #1D9E75;
+  --stat-standard: #6B4C9A;
+  --stat-junior: #1A6FC4;
+  --stat-revenue: #1A6FC4;
+
+  /* Status Badge Colors */
+  --badge-available-bg: #E1F5EE;
+  --badge-available-text: #0F6E56;
+  --badge-reserved-bg: #E6F1FB;
+  --badge-reserved-text: #185FA5;
+  --badge-occupied-bg: #FAEEDA;
+  --badge-occupied-text: #854F0B;
+  --badge-cancelled-bg: #FAECE7;
+  --badge-cancelled-text: #993C1D;
+
+  /* Font Families */
+  --font-display: 'Cormorant Garamond', serif;
+  --font-ui: 'Montserrat', sans-serif;
+  --font-body: 'Lato', sans-serif;
+
+  /* Spacing Scale */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 30px;
+  --radius-circle: 50%;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 300ms ease;
+
+  /* Shadows */
+  --shadow-none: none;
+  --shadow-modal: 0 8px 32px rgba(7, 30, 40, 0.18);
+  --shadow-focus: 0 0 0 3px rgba(29, 158, 117, 0.3);
+}
+
+/* ── Reset ────────────────────────────────────────────────── */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: var(--color-text-primary);
+  background-color: var(--admin-content-bg);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ── Typography ───────────────────────────────────────────── */
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+/* Display titles — Cormorant Garamond */
+.heading-display {
+  font-family: var(--font-display);
+  color: var(--color-ocean-deep);
+}
+
+.heading-display--lg {
+  font-size: 48px;
+  font-weight: 700;
+}
+
+.heading-display--md {
+  font-size: 32px;
+  font-weight: 600;
+}
+
+.heading-display--sm {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* UI labels — Montserrat */
+.text-ui {
+  font-family: var(--font-ui);
+  color: var(--color-ocean-deep);
+}
+
+.text-ui--label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.text-ui--card-title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.text-ui--table-header {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Body text — Lato */
+.text-body {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-primary);
+}
+
+.text-body--secondary {
+  color: var(--color-text-secondary);
+}
+
+.text-body--light {
+  color: var(--color-text-light);
+}
+
+.text-body--muted {
+  color: var(--color-text-muted-light);
+}
+
+/* ── Admin Content Layout ─────────────────────────────────── */
+
+.admin-content {
+  background: var(--admin-content-bg);
+  min-height: 100vh;
+  padding: 40px;
+}
+
+.admin-content__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* ── Page Header ──────────────────────────────────────────── */
+
+.page-header {
+  margin-bottom: var(--space-6);
+}
+
+.page-header__title {
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--color-ocean-deep);
+  margin-bottom: var(--space-2);
+}
+
+.page-header__subtitle {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-6);
+}
+
+.page-header__divider {
+  height: 1px;
+  background: rgba(201, 184, 120, 0.4);
+  border: none;
+  margin-bottom: var(--space-6);
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+
+/* Action buttons — dark pill (Manage / Update / Delete) */
+.btn-action {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ocean-deep);
+  color: var(--color-text-light);
+}
+
+.btn-action:hover:not(:disabled) {
+  background: var(--color-deep-night);
+}
+
+.btn-action--delete:hover:not(:disabled) {
+  background: var(--color-coral-sunset);
+}
+
+.btn-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Primary button — teal (Save, Login, Search) */
+.btn-primary {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+  background: var(--color-caribbean-teal);
+  color: #ffffff;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: #17875f;
+}
+
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.btn-primary:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Secondary button — outline (Cancel, Return) */
+.btn-secondary {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  background: transparent;
+  color: var(--color-ocean-deep);
+  border: 1px solid var(--color-ocean-deep);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: var(--color-ocean-deep);
+  color: var(--color-text-light);
+}
+
+/* Ghost button — white outline (login screen) */
+.btn-ghost {
+  font-family: var(--font-ui);
+  font-size: 13px;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 12px 28px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid #ffffff;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* ── Cards ────────────────────────────────────────────────── */
+
+.card {
+  background: var(--admin-card-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-sand-white);
+  overflow: hidden;
+  transition: border-color var(--transition-base);
+}
+
+.card:hover {
+  border-color: var(--color-golden-sand);
+}
+
+/* ── Loading Skeleton ─────────────────────────────────────── */
+
+.skeleton {
+  background: var(--color-sand-white);
+  border-radius: var(--radius-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  animation: shimmer 1.5s ease infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
