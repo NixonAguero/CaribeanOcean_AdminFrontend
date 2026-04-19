@@ -3,7 +3,7 @@ import { useRooms } from './hooks/useRooms';
 import Rooms from './components/Rooms';
 import styles from './styles/rooms.module.css';
 
-const RoomsPage: React.FC = () => {
+function RoomsPage() {
   const { roomTypes, loading, error, refetch } = useRooms();
 
   const handleManage = (roomType: RoomType): void => {
@@ -47,9 +47,10 @@ const RoomsPage: React.FC = () => {
       </div>
     </div>
   );
-};
+}
 
-const SkeletonGrid: React.FC = () => (
+function SkeletonGrid() {
+  return (
   <div className={styles.skeletonGrid}>
     {[1, 2, 3].map((i) => (
       <div key={i} className={styles.skeletonCard}>
@@ -65,6 +66,7 @@ const SkeletonGrid: React.FC = () => (
       </div>
     ))}
   </div>
-);
+  );
+}
 
 export default RoomsPage;

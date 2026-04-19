@@ -8,7 +8,7 @@ interface RoomsProps {
   onUpdate: (roomType: RoomType) => void;
 }
 
-const Rooms: React.FC<RoomsProps> = ({ roomTypes, onManage, onUpdate }) => {
+function Rooms({ roomTypes, onManage, onUpdate }: RoomsProps) {
   return (
     <section className={styles.grid} id="room-type-grid">
       {roomTypes.map((roomType) => (
