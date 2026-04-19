@@ -1,0 +1,129 @@
+/* src/features/booking/styles/modals.module.css */
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(7, 30, 40, 0.4); /* Uses var(--color-deep-night) with opacity */
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: var(--space-5);
+}
+
+.modalContent {
+  background: var(--admin-card-bg);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-modal);
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  border: 1px solid var(--admin-topbar-border);
+  animation: slideIn var(--transition-base) forwards;
+}
+
+.manageContent {
+  max-width: 400px;
+  text-align: center;
+  padding: var(--space-6);
+}
+
+.modalHeader {
+  padding: var(--space-5);
+  border-bottom: 1px solid var(--color-sand-white);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modalTitle {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-ocean-deep);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.closeButton:hover {
+  color: var(--color-ocean-deep);
+}
+
+.modalBody {
+  padding: var(--space-5);
+}
+
+.modalFooter {
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--color-sand-white);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  background: var(--color-pearl-white);
+  border-bottom-left-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+}
+
+/* Form Styles */
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.formGroup.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.label {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--color-ocean-deep);
+}
+
+.input {
+  font-family: var(--font-body);
+  font-size: 14px;
+  padding: 10px 12px;
+  border: 1px solid #D1D5DB;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  transition: border-color var(--transition-fast);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--color-caribbean-teal);
+  box-shadow: var(--shadow-focus);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
