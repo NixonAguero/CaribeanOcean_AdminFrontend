@@ -3,8 +3,6 @@ import styles from './Rooms.module.css';
 
 
 
-const roomImages = import.meta.glob<{ default: string }>('../../../assets/images/rooms/*.jpg', { eager: true });
-
 interface RoomCardProps {
   roomType: RoomType;
   onManage: (roomType: RoomType) => void;
@@ -14,17 +12,11 @@ interface RoomCardProps {
 function RoomCard({ roomType, onManage, onUpdate }: RoomCardProps) {
   const formattedPrice = `$${roomType.dailyRate.toLocaleString()}`;
 
-  const fileName = roomType.imageUrl.split('/').pop();
-
-
-  const imageKey = `../../../assets/images/rooms/${fileName}`;
-  const imageUrl = roomImages[imageKey] ? roomImages[imageKey].default : '';
-
   return (
     <article className={styles.card} id={`room-type-card-${roomType.id}`}>
       <div className={styles.cardImageWrapper}>
         <img
-          src={imageUrl}
+          src={roomType.imageUrl}
           alt={`${roomType.name} room`}
           className={styles.cardImage}
           loading="lazy"
@@ -41,7 +33,7 @@ function RoomCard({ roomType, onManage, onUpdate }: RoomCardProps) {
             onClick={() => onManage(roomType)}
             id={`manage-btn-${roomType.id}`}
           >
-            Details
+            Manage
           </button>
           <button
             className="btn-action"

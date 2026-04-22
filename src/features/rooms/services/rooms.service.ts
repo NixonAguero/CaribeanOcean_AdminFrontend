@@ -12,15 +12,13 @@ export const fetchRoomTypes = async (): Promise<RoomType[]> => {
 
 export const updateRoomType = async (
   id: number,
-  payload: Partial<RoomType>
-): Promise<RoomType> => {
+  payload: FormData
+): Promise<void> => {
   const response = await fetch(`${BASE_URL}/api/RoomType/${id}`, {
     method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    body: payload,
   });
   if (!response.ok) {
     throw new Error(`Failed to update room type: ${response.status} ${response.statusText}`);
   }
-  return response.json();
 };
