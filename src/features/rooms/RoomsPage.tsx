@@ -1,17 +1,22 @@
+import { useState } from 'react';
 import type { RoomType } from './types/rooms.types';
 import { useRooms } from './hooks/useRooms';
 import Rooms from './components/Rooms';
+import UpdateRoomModal from './components/UpdateRoomModal';
 import styles from './styles/rooms.module.css';
 
-const RoomsPage: React.FC = () => {
+function RoomsPage() {
   const { roomTypes, loading, error, refetch } = useRooms();
 
-  const handleManage = (roomType: RoomType): void => {
-    console.log('Manage room type:', roomType.name);
-  };
+  const [selectedRoom, setSelectedRoom] = useState<RoomType | null>(null);
+  const [isUpdateOpen, setIsUpdateOpen] = useState(false);
+
+  // Botón Manage inactivo por solicitud del usuario
+  const handleManage = (roomType: RoomType): void => {};
 
   const handleUpdate = (roomType: RoomType): void => {
-    console.log('Update room type:', roomType.name);
+    setSelectedRoom(roomType);
+    setIsUpdateOpen(true);
   };
 
   return (
@@ -44,12 +49,20 @@ const RoomsPage: React.FC = () => {
             onUpdate={handleUpdate}
           />
         )}
+
+        <UpdateRoomModal 
+          isOpen={isUpdateOpen} 
+          onClose={() => setIsUpdateOpen(false)} 
+          onSuccess={refetch}
+          roomType={selectedRoom} 
+        />
       </div>
     </div>
   );
-};
+}
 
-const SkeletonGrid: React.FC = () => (
+function SkeletonGrid() {
+  return (
   <div className={styles.skeletonGrid}>
     {[1, 2, 3].map((i) => (
       <div key={i} className={styles.skeletonCard}>
@@ -65,6 +78,7 @@ const SkeletonGrid: React.FC = () => (
       </div>
     ))}
   </div>
-);
+  );
+}
 
 export default RoomsPage;

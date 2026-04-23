@@ -1,20 +1,22 @@
 import type { RoomType } from '../types/rooms.types';
 import styles from './Rooms.module.css';
 
+
+
 interface RoomCardProps {
   roomType: RoomType;
   onManage: (roomType: RoomType) => void;
   onUpdate: (roomType: RoomType) => void;
 }
 
-const RoomCard: React.FC<RoomCardProps> = ({ roomType, onManage, onUpdate }) => {
-  const formattedPrice = `$${roomType.daily_rate.toLocaleString()}`;
+function RoomCard({ roomType, onManage, onUpdate }: RoomCardProps) {
+  const formattedPrice = `$${roomType.dailyRate.toLocaleString()}`;
 
   return (
     <article className={styles.card} id={`room-type-card-${roomType.id}`}>
       <div className={styles.cardImageWrapper}>
         <img
-          src={roomType.image_url}
+          src={roomType.imageUrl}
           alt={`${roomType.name} room`}
           className={styles.cardImage}
           loading="lazy"
@@ -29,17 +31,13 @@ const RoomCard: React.FC<RoomCardProps> = ({ roomType, onManage, onUpdate }) => 
           <button
             className="btn-action"
             onClick={() => onManage(roomType)}
-            disabled
-            title="Coming soon"
             id={`manage-btn-${roomType.id}`}
           >
-            Details
+            Manage
           </button>
           <button
             className="btn-action"
             onClick={() => onUpdate(roomType)}
-            disabled
-            title="Coming soon"
             id={`update-btn-${roomType.id}`}
           >
             Update
