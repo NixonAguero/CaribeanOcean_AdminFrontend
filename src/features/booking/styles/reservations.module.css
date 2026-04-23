@@ -66,3 +66,56 @@
   font-weight: 600;
   color: var(--color-caribbean-teal);
 }
+
+/* Add inside src/features/booking/styles/reservations.module.css */
+
+/* --- Clean Up Utility Classes --- */
+
+/* Empty state styling */
+.emptyState {
+  padding: 3rem;
+  text-align: center;
+}
+
+/* Aligning the Actions header properly */
+.actionsHeader {
+  text-align: center;
+}
+
+/* Specific styling for the Check In/Out dates column */
+.dateCellText {
+  font-size: 13px;
+}
+css
+/* --- Page Header Layout --- */
+.headerFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+
+/* --- Responsiveness para Reservations Page --- */
+@media (max-width: 768px) {
+  /* Apila el título y el botón de 'Check Availability' */
+  .headerFlex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  
+  /* Hace que el botón ocupe todo el ancho en el celular */
+  .headerFlex button {
+    width: 100%;
+  }
+  /* Permite que la tabla se deslice horizontalmente (Scroll) en móviles */
+  .tableContainer {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Evita que las columnas se aplasten demasiado */
+  .table {
+    min-width: 700px;
+  }
+}
