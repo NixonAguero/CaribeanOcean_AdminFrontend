@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { RoomType } from './types/rooms.types';
-import { useRooms } from './hooks/useRooms';
-import Rooms from './components/Rooms';
-import UpdateRoomModal from './components/UpdateRoomModal';
+import { useRoomTypes } from './hooks/useRoomTypes';
+import RoomTypeList from './components/RoomTypeList';
+import UpdateRoomTypeModal from './components/UpdateRoomTypeModal';
 import styles from './styles/rooms.module.css';
 
-function RoomsPage() {
-  const { roomTypes, loading, error, refetch } = useRooms();
+function RoomTypePage() {
+  const { roomTypes, loading, error, fetchRoomTypes, updateRoomType } = useRoomTypes();
 
   const [selectedRoom, setSelectedRoom] = useState<RoomType | null>(null);
   const [isUpdateOpen, setIsUpdateOpen] = useState(false);
 
-  // Botón Manage inactivo por solicitud del usuario
+  useEffect(() => {
+    fetchRoomTypes();
+  }, [fetchRoomTypes]);
+
   const handleManage = (roomType: RoomType): void => {};
 
   const handleUpdate = (roomType: RoomType): void => {
@@ -36,24 +39,24 @@ function RoomsPage() {
         {error && (
           <div className={styles.error}>
             <p className={styles.errorText}>{error}</p>
-            <button className="btn-primary" onClick={refetch}>
+            <button className="btn-primary" onClick={fetchRoomTypes}>
               Try again
             </button>
           </div>
         )}
 
         {!loading && !error && (
-          <Rooms
+          <RoomTypeList
             roomTypes={roomTypes}
             onManage={handleManage}
             onUpdate={handleUpdate}
           />
         )}
 
-        <UpdateRoomModal 
+        <UpdateRoomTypeModal 
           isOpen={isUpdateOpen} 
           onClose={() => setIsUpdateOpen(false)} 
-          onSuccess={refetch}
+          onUpdate={updateRoomType}
           roomType={selectedRoom} 
         />
       </div>
@@ -81,4 +84,4 @@ function SkeletonGrid() {
   );
 }
 
-export default RoomsPage;
+export default RoomTypePage;
