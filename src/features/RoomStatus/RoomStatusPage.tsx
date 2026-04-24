@@ -1,6 +1,9 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useRoomStatus } from "./hooks/useRoomStatus";
+import { useEffect, useState } from "react";
 import RoomStatusPDF from "./components/RoomStatusPDF";
+import { getRoomTypes } from "./services/roomType.service";
+import type { RoomType } from "./types/roomType.types";
 import './styles/roomStatus.css';
 
 const RoomStatusPage = () => {
@@ -10,6 +13,21 @@ const RoomStatusPage = () => {
     selectedRoomType,
     setSelectedRoomType
   } = useRoomStatus();
+
+  const [roomTypes, setRoomTypes] = useState<RoomType[]>([]);
+
+  useEffect(() => {
+    const fetchRoomTypes = async () => {
+      try {
+        const data = await getRoomTypes();
+        setRoomTypes(data);
+      } catch (error) {
+        console.error("Error loading room types:", error);
+      }
+    };
+
+    fetchRoomTypes();
+  }, []);
 
   return (
     <div className="room-status-page">
@@ -26,9 +44,12 @@ const RoomStatusPage = () => {
           }
         >
           <option value="">All room types</option>
-          <option value="1">Junior</option>
-          <option value="2">Standart</option>
-          <option value="3">Premiun</option>
+
+          {roomTypes.map((type) => (
+            <option key={type.id} value={type.id}>
+              {type.name}
+            </option>
+          ))}
         </select>
       </div>
 
