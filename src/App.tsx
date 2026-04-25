@@ -1,16 +1,13 @@
-
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { Toaster } from 'react-hot-toast';
-
-import RoomsPage from './features/rooms/RoomsPage';
+import RoomTypePage from './features/roomType/RoomTypePage';
 import ReservationsPage from './features/booking/ReservationPage';
+import RoomStatusPage from './features/RoomStatus/RoomStatusPage';
+import { Toaster } from 'react-hot-toast';
 import SeasonsPage from './features/seasons/SeasonsPage';
-
 function App() {
   return (
     <>
-    
-      <Toaster
+    <Toaster
         position="top-center"
         toastOptions={{
       duration: 4000,
@@ -26,17 +23,17 @@ function App() {
     },
   }}
       />
-
-    
-      <Routes>
-        <Route path="/admin/rooms" element={<RoomsPage />} />
-        <Route path="/admin/reservations" element={<ReservationsPage />} />
-        <Route path="/admin/seasons" element={<SeasonsPage />} />
-
-        <Route path="*" element={<Navigate to="/admin/rooms" replace />} />
-      </Routes>
+    <Routes>
+      
+      <Route path="/admin/rooms" element={<RoomTypePage />} />
+      <Route path="/admin/reservations" element={<ReservationsPage />} />
+      <Route path="/admin/status" element={<RoomStatusPage />} />
+      <Route path="/admin/seaason" element={<SeasonsPage />} />
+      
+      <Route path="" element={<Navigate to="/admin/rooms" replace />} />
+    </Routes>
     </>
   );
 }
 
-export default App;
+export default App ;

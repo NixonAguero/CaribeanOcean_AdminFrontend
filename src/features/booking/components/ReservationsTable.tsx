@@ -1,6 +1,5 @@
 // src/features/booking/components/ReservationsTable.tsx
 
-import React from 'react';
 import { type Reservation } from '../types/reservation.types';
 import styles from '../styles/reservations.module.css';
 
@@ -11,15 +10,15 @@ interface ReservationsTableProps {
   onDelete: (reservation: Reservation) => void;
 }
 
-const ReservationsTable: React.FC<ReservationsTableProps> = ({
+const ReservationsTable = ({
   reservations,
   onManage,
   onUpdate,
   onDelete,
-}) => {
+}: ReservationsTableProps) => {
   if (reservations.length === 0) {
     return (
-      <div className={styles.tableContainer} style={{ padding: '3rem', textAlign: 'center' }}>
+      <div className={`${styles.tableContainer} ${styles.emptyState}`}>
         <p className="text-body--secondary">No reservations found. Click "Add reservation" to start.</p>
       </div>
     );
@@ -35,7 +34,7 @@ const ReservationsTable: React.FC<ReservationsTableProps> = ({
             <th>Space</th>
             <th>Check In/Out</th>
             <th>Total Cost</th>
-            <th style={{ textAlign: 'right' }}>Actions</th>
+            <th className={styles.actionsHeader}>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -47,7 +46,7 @@ const ReservationsTable: React.FC<ReservationsTableProps> = ({
               </td>
               <td>{res.roomTypeName}</td>
               <td>
-                <span className="text-body--secondary" style={{ fontSize: '13px' }}>
+                <span className={`text-body--secondary ${styles.dateCellText}`}>
                   {new Date(res.checkIn).toLocaleDateString()} - <br/>
                   {new Date(res.checkOut).toLocaleDateString()}
                 </span>

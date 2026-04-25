@@ -1,0 +1,157 @@
+.room-status-page {
+  padding: 24px;
+}
+
+.room-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.room-table th,
+.room-table td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.room-table th {
+  background-color: #f4f4f4;
+}
+
+/* Status colors */
+.status-available {
+  color: green;
+  font-weight: bold;
+}
+
+.status-occupied {
+  color: red;
+  font-weight: bold;
+}
+
+.status-inactive {
+  color: gray;
+  font-weight: bold;
+}
+
+.print-button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 40px;
+}
+
+.print-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+
+  background-color: #2f2f2f;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 12px 26px; /* ⬅ más grande */
+
+  font-size: 16px;   /* ⬅ texto más grande */
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.print-button:hover {
+  background-color: #1f1f1f;
+  transform: translateY(-2px);
+}
+
+.print-button:active {
+  transform: translateY(0);
+}
+
+.print-icon {
+  font-size: 18px; /* ⬅ ícono más grande */
+  line-height: 1;
+}
+
+
+/* ===== PRINT STYLES ===== */
+@media print {
+  .print-btn {
+    display: none;
+  }
+
+  body {
+    background: white;
+  }
+
+  table {
+    page-break-inside: avoid;
+  }
+}
+
+select {
+  margin-top: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+}
+
+/* =========================
+   Filter (same style as print button)
+========================= */
+.filter-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.filter-select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: #2f2f2f;
+  color: #ffffff;
+
+  border: none;
+  border-radius: 8px;
+
+  padding: 12px 42px 12px 20px;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: background-color 0.2s ease, transform 0.15s ease;
+
+  /* Custom arrow */
+  background-image: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 24 24' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+}
+
+.filter-select:hover {
+  background-color: #1f1f1f;
+  transform: translateY(-1px);
+}
+
+.filter-select:focus {
+  outline: none;
+}
+
+/* Hide filter in print */
+@media print {
+  .filter-container {
+    display: none;
+  }
+}

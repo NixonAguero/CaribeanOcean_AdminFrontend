@@ -1,8 +1,6 @@
 import type { RoomType } from '../types/rooms.types';
 import styles from './Rooms.module.css';
 
-
-
 interface RoomCardProps {
   roomType: RoomType;
   onManage: (roomType: RoomType) => void;

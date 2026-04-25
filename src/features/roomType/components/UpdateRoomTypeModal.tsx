@@ -1,17 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
 import type { RoomType } from '../types/rooms.types';
-import { updateRoomType } from '../services/rooms.service';
 import styles from '../styles/modals.module.css';
 
-
-interface UpdateRoomModalProps {
+interface UpdateRoomTypeModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: () => void;
+  onUpdate: (id: number, payload: FormData) => Promise<{ data: unknown; hasError: boolean } | undefined>;
   roomType: RoomType | null;
 }
 
-export default function UpdateRoomModal({ isOpen, onClose, onSuccess, roomType }: UpdateRoomModalProps) {
+export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomType }: UpdateRoomTypeModalProps) {
   const [formData, setFormData] = useState<{
     name: string;
     description: string;
@@ -25,7 +23,7 @@ export default function UpdateRoomModal({ isOpen, onClose, onSuccess, roomType }
   });
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -38,13 +36,11 @@ export default function UpdateRoomModal({ isOpen, onClose, onSuccess, roomType }
         image: null,
       });
       setPreviewUrl(roomType.imageUrl);
-      setError(null);
+      setSubmitError(null);
     }
   }, [roomType, isOpen]);
 
   if (!isOpen || !roomType) return null;
-
-
 
   const handleChange = (field: string, value: string | number) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -66,25 +62,25 @@ export default function UpdateRoomModal({ isOpen, onClose, onSuccess, roomType }
     e.preventDefault();
     if (!roomType) return;
     
-    try {
-      setIsSubmitting(true);
-      setError(null);
-      
-      const payload = new FormData();
-      payload.append('name', formData.name);
-      payload.append('description', formData.description);
-      payload.append('dailyRate', (formData.dailyRate || 0).toString());
-      if (formData.image) {
-        payload.append('image', formData.image);
-      }
+    setIsSubmitting(true);
+    setSubmitError(null);
 
-      await updateRoomType(roomType.id, payload);
-      onSuccess();
+    const payload = new FormData();
+    payload.append('name', formData.name);
+    payload.append('description', formData.description);
+    payload.append('dailyRate', (formData.dailyRate || 0).toString());
+    if (formData.image) {
+      payload.append('image', formData.image);
+    }
+
+    const result = await onUpdate(roomType.id, payload);
+
+    setIsSubmitting(false);
+
+    if (result?.hasError) {
+      setSubmitError('Error al actualizar el tipo de habitación.');
+    } else {
       onClose();
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Unknown error updating room');
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -106,7 +102,7 @@ export default function UpdateRoomModal({ isOpen, onClose, onSuccess, roomType }
         </div>
         
         <form onSubmit={handleSubmit} className={styles.modalBody} style={{ padding: '0' }}>
-          {error && <div style={{ color: '#D85A30', marginBottom: '16px', fontSize: '14px' }}>{error}</div>}
+          {submitError && <div style={{ color: '#D85A30', marginBottom: '16px', fontSize: '14px' }}>{submitError}</div>}
           
           <div className={styles.formGroup} style={{ marginBottom: '20px' }}>
             <input 

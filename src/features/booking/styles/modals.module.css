@@ -6,7 +6,8 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(7, 30, 40, 0.4); /* Uses var(--color-deep-night) with opacity */
+  background: rgba(7, 30, 40, 0.4);
+  /* Uses var(--color-deep-night) with opacity */
   backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
@@ -117,13 +118,236 @@
   box-shadow: var(--shadow-focus);
 }
 
+/* Add inside src/features/booking/styles/modals.module.css */
+
+/* --- Clean Up Utility Classes --- */
+
+/* For the Check Availability date row */
+.wizardDateRow {
+  margin-bottom: var(--space-6);
+}
+
+/* For spacing the results grid */
+.resultsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+/* For the individual room cards */
+.roomCard {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-4);
+  border: 1px solid var(--color-sand-white);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast);
+}
+
+.roomCard:hover {
+  border-color: var(--color-caribbean-teal);
+}
+
+/* Shared utility for title headers inside the body */
+.sectionTitle {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-ocean-deep);
+  margin-bottom: var(--space-3);
+}
+
+/* Success badge used in Reservation Form */
+.successBadge {
+  background-color: var(--badge-available-bg);
+  color: var(--badge-available-text);
+  padding: 12px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* --- Manage Modal Utilities --- */
+
+.manageTitle {
+  margin-bottom: var(--space-4);
+}
+
+.manageDetails {
+  text-align: left;
+  background-color: var(--color-pearl-white);
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-sand-white);
+  margin-bottom: var(--space-5);
+  font-size: 13px;
+}
+
+.manageDetails p {
+  margin-bottom: var(--space-2);
+}
+
+.btnGroupVertical {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.btnFull {
+  width: 100%;
+}
+
+
+
+/* --- Date Verification Inline Flow --- */
+.dateHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.dateHeader label {
+  margin: 0;
+}
+
+.dateRow {
+  display: flex;
+  gap: 1rem;
+}
+
+.dateCol {
+  flex: 1;
+}
+
+.dateLabelSmall {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.verificationBox {
+  padding: 1rem;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  background-color: var(--bg-secondary);
+}
+
+.verificationBoxRow {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.verificationError {
+  color: var(--color-coral-sunset);
+  margin-bottom: 1rem;
+  font-size: 13px;
+}
+
+.verificationActions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+
+/* --- Confirmation Modal Specifics --- */
+.confirmContent {
+  max-width: 400px;
+}
+
+.dangerTitle {
+  color: var(--color-coral-sunset);
+}
+
+.confirmMessage {
+  margin: 0;
+  font-size: 15px;
+  color: var(--color-ocean-deep);
+}
+
+.alertWrapper {
+  margin-top: var(--space-5);
+}
+
+.btnDanger {
+  background-color: var(--color-coral-sunset);
+  border-color: var(--color-coral-sunset);
+  color: var(--color-pearl-white);
+
+  padding: 8px 16px;
+  border-radius: var(--radius-lg);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.btnDanger:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+.btnDanger:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btnSpinnerWrapper {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: center;
+}
+
 @keyframes slideIn {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+/* --- Responsiveness para Modales --- */
+@media (max-width: 600px) {
+
+  /* Reduce el espacio negro alrededor del modal para aprovechar la pantalla */
+  .modalOverlay {
+    padding: var(--space-3);
+  }
+
+  /* Colapsa el grid de 2 columnas (Nombre / Apellido) a 1 sola columna vertical */
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Apila los cuadritos de fechas de Check-in y Check-out */
+  .dateRow,
+  .verificationBoxRow {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Acomoda el título de fechas y el botoncito de cambiar fechas */
+  .dateHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  /* En celulares, los botones del Footer se ven mejor apilados (Cancelar abajo) */
+  .modalFooter,
+  .verificationActions {
+    flex-direction: column-reverse;
+  }
+
+  .modalFooter button,
+  .verificationActions button {
+    width: 100%;
   }
 }

@@ -2,13 +2,13 @@ import type { RoomType } from '../types/rooms.types';
 import RoomCard from './RoomCard';
 import styles from './Rooms.module.css';
 
-interface RoomsProps {
+interface RoomTypeListProps {
   roomTypes: RoomType[];
   onManage: (roomType: RoomType) => void;
   onUpdate: (roomType: RoomType) => void;
 }
 
-function Rooms({ roomTypes, onManage, onUpdate }: RoomsProps) {
+function RoomTypeList({ roomTypes, onManage, onUpdate }: RoomTypeListProps) {
   return (
     <section className={styles.grid} id="room-type-grid">
       {roomTypes.map((roomType) => (
@@ -23,4 +23,4 @@ function Rooms({ roomTypes, onManage, onUpdate }: RoomsProps) {
   );
 };
 
-export default Rooms;
+export default RoomTypeList;
