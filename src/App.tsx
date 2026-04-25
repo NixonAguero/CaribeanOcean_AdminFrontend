@@ -28,7 +28,7 @@ function App() {
       <Route path="/admin/rooms" element={<RoomTypePage />} />
       <Route path="/admin/reservations" element={<ReservationsPage />} />
       <Route path="/admin/status" element={<RoomStatusPage />} />
-      <Route path="/admin/seaason" element={<SeasonsPage />} />
+      <Route path="/admin/season" element={<SeasonsPage />} />
       
       <Route path="" element={<Navigate to="/admin/rooms" replace />} />
     </Routes>

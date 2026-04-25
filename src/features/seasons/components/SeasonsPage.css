@@ -2,7 +2,6 @@
 .page-container {
   padding: 30px;
   font-display: 'Cormorant Garamond', serif;
-  background-color: #C9B878;
   min-height: 100vh;
 }
 
@@ -14,14 +13,12 @@
   color: black;
 }
 
-
-
 /* Tabla */
 .table-container {
-  background: #C9B878;
   border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  box-shadow: 0 20px 15px rgba(0,0,0,0.05);
   overflow: hidden;
+  margin-top: 20px;
 }
 
 /* tabla base */
@@ -32,7 +29,7 @@
 
 /* encabezado */
 .season-table thead {
-  background-color: #C9B878;
+  background-color: #ffffff;
 }
 
 .season-table th {
@@ -45,7 +42,7 @@
 /* filas */
 .season-table td {
   padding: 14px;
-  border-top: 1px solid #eee;
+  border-top: 1px solid #dbd3d3;
   color: black;
 }
 
