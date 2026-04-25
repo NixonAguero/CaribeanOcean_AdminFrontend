@@ -1,0 +1,110 @@
+/* 🌑 Fondo oscuro difuminado */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.4); /* mismo tono elegante */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+/* 📦 Contenedor del modal */
+.modal-content {
+  background: #ffffff;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  animation: fadeIn 0.25s ease;
+  position: relative;
+}
+
+/* ✨ Animación suave */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ❌ botón cerrar */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 14px;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  color: #666;
+  transition: 0.2s;
+}
+
+.close-btn:hover {
+  color: #111;
+}
+
+/* 🧾 título */
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* formulario */
+.season-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* inputs */
+.season-form input {
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.season-form input:focus {
+  outline: none;
+  border-color: #4f46e5; /* mismo color del botón principal */
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.15);
+}
+
+/* botón submit */
+.season-form button {
+  margin-top: 10px;
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: 0.2s;
+}
+
+.season-form button:hover {
+  background-color: #4338ca;
+}
+
+/* 📱 responsive */
+@media (max-width: 480px) {
+  .modal-content {
+    width: 90%;
+    padding: 20px;
+  }
+}
+

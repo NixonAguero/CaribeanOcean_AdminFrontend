@@ -1,0 +1,121 @@
+/* 🌌 Fondo general */
+.page-container {
+  padding: 30px;
+  font-display: 'Cormorant Garamond', serif;
+  background-color: #C9B878;
+  min-height: 100vh;
+}
+
+/* 🧾 Título */
+.page-title {
+  font-size: 28px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: black;
+}
+
+
+
+/* Tabla */
+.table-container {
+  background: #C9B878;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  overflow: hidden;
+}
+
+/* tabla base */
+.season-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* encabezado */
+.season-table thead {
+  background-color: #C9B878;
+}
+
+.season-table th {
+  text-align: left;
+  padding: 14px;
+  font-size: 14px;
+  color: black;
+}
+
+/* filas */
+.season-table td {
+  padding: 14px;
+  border-top: 1px solid #eee;
+  color: black;
+}
+
+/* hover fila */
+.season-table tbody tr:hover {
+  background-color: #f9fafb;
+}
+
+/* 🛠 botones acciones */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.closeButton:hover {
+  color: var(--color-ocean-deep);
+}
+
+
+
+
+/* 📱 responsive */
+@media (max-width: 768px) {
+  .season-table th,
+  .season-table td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+.btn-action {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 8px 16px;
+  border-radius: var(--radius-pill);
+  border: none;
+  cursor: pointer;
+  transition: background-color var(--transition-base);
+  text-align: center;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-ocean-deep);
+  color: var(--color-text-light);
+}
+
+.btn-action:hover:not(:disabled) {
+  background: var(--color-deep-night);
+}
+
+.btn-action--delete:hover:not(:disabled) {
+  background: var(--color-coral-sunset);
+}
+
+.btn-action:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+}
