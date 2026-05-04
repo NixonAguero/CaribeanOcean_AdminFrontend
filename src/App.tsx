@@ -4,6 +4,7 @@ import ReservationsPage from './features/booking/ReservationPage';
 import RoomStatusPage from './features/RoomStatus/RoomStatusPage';
 import { Toaster } from 'react-hot-toast';
 import SeasonsPage from './features/seasons/SeasonsPage';
+import Offers from './features/offers/components/Offers';
 import Layout from './app/layout/MainLayout';
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path="/admin/reservations" element={<ReservationsPage />} />
           <Route path="/admin/status" element={<RoomStatusPage />} />
           <Route path="/admin/season" element={<SeasonsPage />} />
+          <Route path="/admin/offers" element={<Offers />} />
 
           <Route path="" element={<Navigate to="/admin/rooms" replace />} />
         </Routes>

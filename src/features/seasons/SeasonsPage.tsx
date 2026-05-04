@@ -63,10 +63,10 @@ const SeasonsPage = () => {
 
   return (
     <div className="page-container">
-      <h1 className="page-title">Seasons</h1>
-      
-      <button className="btn-action"
-       onClick={handleCreate}>Add Season</button>
+      <div className="header">
+        <h1 className="page-title">Manage Seasons</h1>
+        <button className="add-button" onClick={handleCreate}>Add Season</button>
+      </div>
 
       <div className="table-container">
       <table className="season-table">
