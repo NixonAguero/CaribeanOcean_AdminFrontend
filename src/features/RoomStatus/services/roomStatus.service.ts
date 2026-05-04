@@ -1,12 +1,12 @@
 import type { RoomStatus } from "../types/roomStatus.types";
 
-const API_URL = 'http://localhost:5000/api/Room/status-today';
+const API_URL = 'http://localhost:5287/api/Room/status-today';
 
 export const getRoomStatusToday = async (roomTypeId?: number) => {
   const query = roomTypeId ? `?roomTypeId=${roomTypeId}` : "";
 
   const response = await fetch(
-    `http://localhost:5000/api/Room/status-today${query}`
+    `http://localhost:5287/api/Room/status-today${query}`
   );
 
   if (!response.ok) {
