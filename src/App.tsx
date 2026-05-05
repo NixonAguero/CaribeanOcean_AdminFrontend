@@ -6,6 +6,8 @@ import { Toaster } from 'react-hot-toast';
 import SeasonsPage from './features/seasons/SeasonsPage';
 import Offers from './features/offers/components/Offers';
 import Layout from './app/layout/MainLayout';
+import HeroPage from './features/hero/HeroPage';
+import ManagePagesPage from './features/managePages/ManagePagesPage';
 
 function App() {
   return (
@@ -30,11 +32,13 @@ function App() {
       <Layout>
         <Routes>
 
+          <Route path="/admin/pages" element={<ManagePagesPage />} />
           <Route path="/admin/rooms" element={<RoomTypePage />} />
           <Route path="/admin/reservations" element={<ReservationsPage />} />
           <Route path="/admin/status" element={<RoomStatusPage />} />
           <Route path="/admin/season" element={<SeasonsPage />} />
           <Route path="/admin/offers" element={<Offers />} />
+          <Route path="/admin/hero" element={<HeroPage />} />
 
           <Route path="" element={<Navigate to="/admin/rooms" replace />} />
         </Routes>
