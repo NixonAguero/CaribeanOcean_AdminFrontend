@@ -4,6 +4,7 @@ export interface NavLink {
 }
 
 export const navLinks: NavLink[] = [
+    { to: "/admin/pages",              label: "Manage Pages" },
     { to: "/admin/rooms",              label: "Manage Rooms" },
     { to: "/admin/reservations",       label: "Reservations" },
     { to: "/admin/status",             label: "Today's Status" },
