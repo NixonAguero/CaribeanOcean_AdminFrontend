@@ -2,9 +2,9 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { useRoomStatus } from "./hooks/useRoomStatus";
 import { useEffect, useState } from "react";
 import RoomStatusPDF from "./components/RoomStatusPDF";
-import { getRoomTypes } from "./services/roomType.service";
+import { getRoomTypes } from "../RoomStatus/services/roomType.service";
 import type { RoomType } from "./types/roomType.types";
-import './styles/roomStatus.css';
+import styles from './styles/roomStatus.module.css';
 
 const RoomStatusPage = () => {
   const {
@@ -29,13 +29,21 @@ const RoomStatusPage = () => {
     fetchRoomTypes();
   }, []);
 
+  const getStatusClass = (status: string) => {
+    switch (status.toLowerCase()) {
+      case "available": return styles.statusAvailable;
+      case "occupied":  return styles.statusOccupied;
+      default:          return styles.statusInactive;
+    }
+  };
+
   return (
-    <div className="room-status-page">
+    <div className={styles.page}>
       <h2>Room Status Today</h2>
 
-      <div className="filter-container">
+      <div className={styles.filterContainer}>
         <select
-          className="filter-select"
+          className={styles.filterSelect}
           value={selectedRoomType ?? ""}
           onChange={(e) =>
             setSelectedRoomType(
@@ -44,7 +52,6 @@ const RoomStatusPage = () => {
           }
         >
           <option value="">All room types</option>
-
           {roomTypes.map((type) => (
             <option key={type.id} value={type.id}>
               {type.name}
@@ -56,36 +63,40 @@ const RoomStatusPage = () => {
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <table className="room-table">
-          <thead>
-            <tr>
-              <th>Room</th>
-              <th>Type</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rooms.map((room) => (
-              <tr key={room.id}>
-                <td>{room.number}</td>
-                <td>{room.roomType}</td>
-                <td className={`status-${room.status.toLowerCase()}`}>
-                  {room.status}
-                </td>
+        <div className={styles.tableContainer}>
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Room</th>
+                <th>Type</th>
+                <th>Status</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {rooms.map((room) => (
+                <tr key={room.number} className={styles.tableRow}>
+                  <td>{room.number}</td>
+                  <td>{room.roomType}</td>
+                  <td>
+                    <span className={getStatusClass(room.status)}>
+                      {room.status}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
 
-      <div className="print-button-container">
+      <div className={styles.printContainer}>
         <PDFDownloadLink
           document={<RoomStatusPDF rooms={rooms} />}
           fileName="room-status-today.pdf"
         >
           {({ loading }) => (
-            <button className="print-button" disabled={loading}>
-              <span className="print-icon">🖨️</span>
+            <button className={styles.printButton} disabled={loading}>
+              <span className={styles.printIcon}>🖨️</span>
               {loading ? "Generating..." : "Print"}
             </button>
           )}
