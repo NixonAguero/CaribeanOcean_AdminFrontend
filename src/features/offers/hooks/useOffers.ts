@@ -7,11 +7,16 @@ export const useOffers = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
+    const sleep = (ms: number = 800): Promise<void> => {
+        return new Promise((resolve) => setTimeout(resolve, ms));
+    };
+
     const fetchOffers = useCallback(async () => {
         setLoading(true);
         setError(null);
         try {
             const data = await GetOffers();
+            await sleep(); 
             setOffers(data);
         } catch (err: any) {
             setError(err.message || "The available offers could not be loaded.");
@@ -21,41 +26,32 @@ export const useOffers = () => {
     }, []);
 
     const addOffer = async (offer: Omit<Offer, 'id'>) => {
-        setLoading(true);
         try {
             await CreateOffer(offer);
-            await fetchOffers();
+            fetchOffers();
         } catch (err: any) {
             setError(err.message || "Error creating new offer.");
             throw err;
-        } finally {
-            setLoading(false);
         }
     };
 
     const editOffer = async (offer: Offer) => {
-        setLoading(true);
         try {
             await UpdateOffer(offer);
-            await fetchOffers();
+            fetchOffers();
         } catch (err: any) {
             setError(err.message || "Error updating offer.");
             throw err;
-        } finally {
-            setLoading(false);
         }
     };
 
     const removeOffer = async (id: number) => {
-        setLoading(true);
         try {
             await DeleteOffer(id);
-            await fetchOffers();
+            fetchOffers();
         } catch (err: any) {
             setError(err.message || "The offer could not be removed.");
             throw err;
-        } finally {
-            setLoading(false);
         }
     };
 

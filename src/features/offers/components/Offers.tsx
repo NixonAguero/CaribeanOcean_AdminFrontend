@@ -17,7 +17,7 @@ export default function Offers (){
             {error && error == "getOffers" && <p className={styles.error}>{error}</p>}
             {loading && <Spinner centered message="Loading offers..." />}
             
-            {offers && offers.length > 0 && (
+            {!loading && offers && offers.length > 0 && (
                 <div className={styles.tableContainer}>
                     <OfferTable 
                         offers={offers} 

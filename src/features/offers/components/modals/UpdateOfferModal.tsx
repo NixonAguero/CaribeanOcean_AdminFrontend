@@ -83,7 +83,7 @@ export default function UpdateOfferModal({ offer, onUpdate, onClose }: Props) {
                     </div>
                     <div className={styles.formGroup}>
                         <label>Discount (%)</label>
-                        <input type="number" min="1" max="100" className={styles.formInput} required value={discount} onChange={e => setDiscount(Number(e.target.value))} />
+                        <input type="number" step="0.01" min="1" max="100" className={styles.formInput} required value={discount} onChange={e => setDiscount(Number(e.target.value))} />
                     </div>
                     <div className={styles.formGroup}>
                         <label>Start Date</label>

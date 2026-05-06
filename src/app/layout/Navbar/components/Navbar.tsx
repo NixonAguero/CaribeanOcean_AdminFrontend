@@ -23,7 +23,6 @@ export default function Navbar() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Close mobile menu on route change
     useEffect(() => {
         closeMenu();
     }, [location.pathname]);
