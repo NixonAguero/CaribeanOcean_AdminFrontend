@@ -28,12 +28,28 @@ const GalleryManagePage = () => {
     setSelectedImage(null);
   };
 
-  const handleSave = async (file: File, alt: string) => {
+  const [formError, setFormError] = useState<string | null>(null);
+
+  const handleSave = async (file: File | null, alt: string) => {
+    if (!selectedImage && !file) {
+      setFormError("Please select an image before saving.");
+      return;
+    }
+    setFormError(null);
     setSaving(true);
     try {
       if (selectedImage) {
-        await updateImage(selectedImage.id, file, alt, ADMIN_ID);
+        // If there is no new File, transform the existing URL into a File
+        if (file) {
+          await updateImage(selectedImage.id, file, alt, ADMIN_ID);
+        } else {
+          const response = await fetch(selectedImage.url);
+          const blob = await response.blob();
+          const existingFile = new File([blob], "existing-image.jpg", { type: blob.type });
+          await updateImage(selectedImage.id, existingFile, alt, ADMIN_ID);
+        }
       } else {
+        if (!file) return;
         await addImage(file, alt, ADMIN_ID);
       }
       setShowForm(false);
@@ -147,6 +163,8 @@ const GalleryManagePage = () => {
           onSave={handleSave}
           onCancel={handleCancel}
           saving={saving}
+          errorMessage={formError}
+          onClearError={() => setFormError(null)}
         />
       )}
     </div>

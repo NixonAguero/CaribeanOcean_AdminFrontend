@@ -4,12 +4,14 @@ import styles from "../styles/GalleryImageForm.module.css";
 
 interface Props {
   selectedImage: GalleryImage | null;
-  onSave: (file: File, alt: string) => Promise<void>;
+  onSave: (file: File | null, alt: string) => Promise<void>;
   onCancel: () => void;
   saving: boolean;
+  errorMessage: string | null;
+  onClearError: () => void; 
 }
 
-const GalleryImageForm = ({ selectedImage, onSave, onCancel, saving }: Props) => {
+const GalleryImageForm = ({ selectedImage, onSave, onCancel, saving, errorMessage, onClearError }: Props) => {
   const [alt, setAlt] = useState("");
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
@@ -35,7 +37,6 @@ const GalleryImageForm = ({ selectedImage, onSave, onCancel, saving }: Props) =>
   };
 
   const handleSubmit = async () => {
-    if (!file) return;
     await onSave(file, alt);
   };
 
@@ -92,6 +93,38 @@ const GalleryImageForm = ({ selectedImage, onSave, onCancel, saving }: Props) =>
             Upload new image
           </button>
         </div>
+        
+        {errorMessage && (
+          <div style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            background: "#fdecea",
+            border: "1px solid #f5c6c6",
+            borderRadius: "var(--radius-sm)",
+            padding: "10px 14px",
+            fontSize: "13px",
+            color: "#991b1b",
+            fontFamily: "var(--font-body)",
+          }}>
+            <span style={{ fontSize: "16px", lineHeight: 1 }}>⚠️</span>
+            <span style={{ flex: 1 }}>{errorMessage}</span>
+            <button
+              onClick={onClearError}
+              style={{
+                background: "none",
+                border: "none",
+                color: "#991b1b",
+                cursor: "pointer",
+                fontSize: "14px",
+                lineHeight: 1,
+                padding: "0 2px",
+              }}
+            >
+              ✕
+            </button>
+          </div>
+        )}
 
         <div className={styles.modalFooter}>
           <button className={styles.cancelBtn} type="button" onClick={onCancel}>
@@ -101,7 +134,7 @@ const GalleryImageForm = ({ selectedImage, onSave, onCancel, saving }: Props) =>
             className={styles.saveBtn}
             type="button"
             onClick={handleSubmit}
-            disabled={saving || !file || !alt.trim()}
+            disabled={saving || !alt.trim()}
           >
             {saving ? "Saving..." : "Save changes"}
           </button>
