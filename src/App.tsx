@@ -8,6 +8,7 @@ import Offers from './features/offers/components/Offers';
 import Layout from './app/layout/MainLayout';
 import HeroPage from './features/hero/HeroPage';
 import ManagePagesPage from './features/managePages/ManagePagesPage';
+import GalleryManagePage from './features/gallery/GalleryManagePage';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
           <Route path="/admin/season" element={<SeasonsPage />} />
           <Route path="/admin/offers" element={<Offers />} />
           <Route path="/admin/hero" element={<HeroPage />} />
+          <Route path="/admin/gallery" element={<GalleryManagePage />} />
 
           <Route path="" element={<Navigate to="/admin/rooms" replace />} />
         </Routes>
