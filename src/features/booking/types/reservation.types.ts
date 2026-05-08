@@ -5,38 +5,43 @@ export interface Reservation {
   roomTypeId: number;
   roomTypeName: string;
   creditCardMasked: string;
-  seasonId: number;
-  seasonName: string;
   clientName: string;
   clientLastname: string;
+  email?: string | null;
   checkIn: string; // ISO date string
   checkOut: string; // ISO date string
   totalAmount: number;
-  // We'll add this to easily represent rows that are active/cancelled/etc on the frontend
   isActive?: boolean;
+  pricingUsedOffer?: boolean;
+  selectedOfferId?: number | null;
 }
 
 
 export interface CreateReservation {
   roomTypeId: number;
-  seasonId: number;
+
   clientName: string;
   clientLastname: string;
-  cardNumber: string; // Unmasked for creation
-  checkIn: string; // ISO date string
-  checkOut: string; // ISO date string
-  totalAmount: number;
+  email?: string | null;
+
+  cardNumber: string;
+
+  checkIn: string;
+  checkOut: string;
+
+  applyOffers: boolean;
+  selectedOfferId: number | null;
 }
 
 export interface UpdateReservation {
-  Id: number;
+  id: number;
+
   clientName: string;
   clientLastname: string;
-  roomTypeId: number;
-  seasonId: number;
-  checkIn: string; // ISO date string
-  checkOut: string; // ISO date string
-  totalAmount: number;
+  email?: string | null;
+
+  checkIn: string;
+  checkOut: string;
 }
 
 export interface AvailableRoomTypeInfo {
@@ -53,18 +58,69 @@ export interface AvailableRoomTypeInfo {
 export type ReservationFormData = {
   clientName: string;
   clientLastname: string;
+  email: string;
+
   checkIn: string;
   checkOut: string;
+
   roomTypeId: number;
-  seasonId: number;
   cardNumber: string;
-  totalAmount: number;
+
+  applyOffers: boolean;
+  selectedOfferId: number | null;
 };
 
 export interface WizardData {
   checkIn: string;
   checkOut: string;
   roomTypeId: number;
+}
+
+export type UpdateReservationFormData = {
+  clientName: string;
+  clientLastname: string;
+  email: string;
+
+  checkIn: string;
+  checkOut: string;
+};
+
+
+export interface CalculateReservationPriceRequest {
+  roomTypeId: number;
+  checkIn: string;
+  checkOut: string;
+  applyOffers: boolean;
+  selectedOfferId: number | null;
+}
+
+export interface ReservationNightPriceDetail {
+  id?: number;
+  reservationId?: number;
+
+  stayDate: string;
+
+  basePrice: number;
+
+  seasonId: number | null;
+  seasonName: string | null;
+  seasonAdjustmentPercentage: number;
+
+  offerId: number | null;
+  offerName: string | null;
+  offerDiscountPercentage: number;
+
+  finalNightPrice: number;
+
+  active?: boolean;
+  createdAt?: string;
+}
+
+export interface ReservationPriceResult {
+  totalAmount: number;
+  nightCount: number;
+  averageNightlyRate: number;
+  nights: ReservationNightPriceDetail[];
 }
 
 
