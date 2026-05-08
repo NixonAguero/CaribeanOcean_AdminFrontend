@@ -70,8 +70,13 @@
     vertical-align: middle;
 }
 
+.tableRow {
+    transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
 .tableRow:hover {
     background-color: #faf7f2;
+    transform: translateY(-1px);
 }
 
 .tableRow:last-child td {
