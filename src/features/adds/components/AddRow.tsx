@@ -1,3 +1,7 @@
+// Función para formatear la fecha a YYYY-MM-DD
+function formatDate(dateString: string) {
+    return dateString.split('T')[0];
+}
 import type { rowAddProps } from '../types/add.props';
 import DeleteAddButton from './DeleteAddButton';
 import styles from '../styles/Add.module.css';
@@ -19,7 +23,7 @@ export default function AddRow({ add, onUpdate, onDelete }: rowAddProps) {
                 </div>
             </td>
             <td>{add.targetURL}</td>
-            <td>{add.updatedAt}</td>
+            <td>{formatDate(add.updatedAt)}</td>
             
             <td>
                 <div className={styles.actions}>
