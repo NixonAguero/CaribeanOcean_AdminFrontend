@@ -3,6 +3,9 @@ import type {
     Reservation,
     CreateReservation,
     UpdateReservation,
+    CalculateReservationPriceRequest,
+    ReservationPriceResult,
+    ReservationNightPriceDetail,
 } from "../types/reservation.types";
 
 type CreateReservationResponse = {
@@ -39,6 +42,27 @@ export const reservationService = {
         return true;
     },
 
+    async previewPrice(
+        request: CalculateReservationPriceRequest
+    ): Promise<ReservationPriceResult> {
+        const response = await apiClient.post<ReservationPriceResult>(
+            "/Reservation/price-preview",
+            request
+        );
+
+        return response.data;
+    },
+
+    async getNightDetails(
+        reservationId: number
+    ): Promise<ReservationNightPriceDetail[]> {
+        const response = await apiClient.get<ReservationNightPriceDetail[]>(
+            `/Reservation/${reservationId}/night-details`
+        );
+
+        return response.data;
+    },
+
     async hasAvailableRoom(
         roomTypeId: number,
         checkIn: string,
@@ -51,4 +75,23 @@ export const reservationService = {
 
         return response.data.hasAvailableRoom;
     },
+
+    async hasAvailableRoomForUpdate(
+        reservationId: number,
+        roomTypeId: number,
+        checkIn: string,
+        checkOut: string
+    ): Promise<boolean> {
+        const response = await apiClient.post<{ hasAvailableRoom: boolean }>(
+            "/Reservation/availability-update",
+            {
+                reservationId,
+                roomTypeId,
+                checkIn,
+                checkOut,
+            }
+        );
+
+        return response.data.hasAvailableRoom;
+    }
 };
