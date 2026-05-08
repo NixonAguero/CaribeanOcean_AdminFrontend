@@ -10,7 +10,7 @@ interface Props extends SingleOfferProps {
 
 export default function OfferRow({ offer, onUpdate, onDelete }: Props) {
     return (
-        <tr>
+        <tr className={styles.tableRow}>
             <td>{offer.name}</td>
             <td>{offer.discount}%</td>
             <td>{offer.startDate}</td>

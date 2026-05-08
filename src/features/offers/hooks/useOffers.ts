@@ -7,7 +7,7 @@ export const useOffers = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    const sleep = (ms: number = 800): Promise<void> => {
+    const sleep = (ms: number = 400): Promise<void> => {
         return new Promise((resolve) => setTimeout(resolve, ms));
     };
 
