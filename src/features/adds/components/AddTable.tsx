@@ -1,10 +1,11 @@
 import type { tableAddProps } from "../types/add.props";
+import styles from '../styles/Add.module.css';
 import AddRow from "./AddRow";
 
 export default function AddTable({ adds, onUpdate, onDelete }: tableAddProps) {
     
     return(
-        <table className="offersTable">
+        <table className={styles.offersTable}>
             <thead>
                 <tr>
                     <th>Image</th>

@@ -22,7 +22,7 @@ export default function AddPage() {
             {loading && <Spinner centered message="Loading adds..." />}
             
             {!loading && adds && adds.length > 0 && (
-                <div className="tableContainer">
+                <div className={styles.tableContainer}>
                     <AddTable adds={adds} onUpdate={editAdd} onDelete={removeAdd} />
                 </div>
             )}
