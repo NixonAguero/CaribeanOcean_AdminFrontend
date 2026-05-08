@@ -101,6 +101,36 @@ export default function ManagePagesPage() {
               </button>
             </div>
           </article>
+
+          {/* Gallery card */}
+          <article className={styles.card} id="manage-page-card-gallery">
+            <div className={styles.thumbnailWrapper}>
+              <div className={styles.thumbnailPlaceholder}>
+                <svg
+                  className={styles.thumbnailPlaceholderIcon}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+                  <circle cx="8.5" cy="8.5" r="1.5" />
+                  <polyline points="21 15 16 10 5 21" />
+                </svg>
+              </div>
+            </div>
+            <div className={styles.cardBody}>
+              <p className={styles.cardName}>Gallery</p>
+              <button
+                id="edit-page-gallery-btn"
+                className={styles.editBtn}
+                onClick={() => navigate('/admin/gallery')}
+              >
+                Edit page content
+              </button>
+            </div>
+          </article>
         </div>
       </div>
     </div>

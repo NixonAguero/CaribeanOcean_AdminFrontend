@@ -1,4 +1,4 @@
-/* 🌌 Fondo general */
+
 .page-container {
   padding: 30px;
   font-display: 'Cormorant Garamond', serif;
@@ -71,9 +71,14 @@
   color: #333;
 }
 
+.season-table tr {
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
 /* hover fila */
 .season-table tbody tr:hover {
   background-color: #F5F0E8;
+  transform: translateY(-1px);
 }
 
 /* 🛠 botones acciones */
