@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import SeasonsModal from "./components/SeasonsModal";
+import SeasonsUpdateModal from "./components/SeasonsUpdateModal";
+import ConfirmModal from "./components/ConfirmModal";
 import { GetAllSeasons, deleteSeason } from "./services/season.service";
 import type { SeasonType } from "./types/season.types";
+import toast from "react-hot-toast";
 import "./components/SeasonsPage.css";
 
 const SeasonsPage = () => {
@@ -9,6 +12,8 @@ const SeasonsPage = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [selectedSeason, setSelectedSeason] = useState<SeasonType|null>(null);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [seasonToDelete, setSeasonToDelete] = useState<number | null>(null);
 
   // Cargar seasons
   const fetchSeasons = async () => {
@@ -33,6 +38,37 @@ const SeasonsPage = () => {
   loadSeasons();
   }, []);
 
+  const openDeleteModal = (id: number) => {
+  setSeasonToDelete(id);
+  setIsDeleteOpen(true);
+  };
+
+  const confirmDelete = async () => {
+
+  if (!seasonToDelete) return;
+
+  try {
+
+    await deleteSeason(seasonToDelete);
+
+    toast.success("Season deleted successfully 🗑️");
+
+    fetchSeasons();
+
+  } catch (error) {
+
+    console.error(error);
+
+    toast.error("Error deleting season ❌");
+
+  } finally {
+
+    setIsDeleteOpen(false);
+
+    setSeasonToDelete(null);
+  }
+};
+
   // ABRIR MODAL CREAR
   const handleCreate = () => {
     setSelectedSeason(null);
@@ -47,19 +83,7 @@ const SeasonsPage = () => {
     setIsOpen(true);
   };
 
-  //  ELIMINAR
-  const handleDelete = async (id: number) => {
-    const confirmDelete = window.confirm("¿Eliminar season?");
-    if (!confirmDelete) return;
 
-    try {
-      await deleteSeason(id);
-      await fetchSeasons();
-    } catch (error) {
-      console.error(error);
-      alert("Error al eliminar");
-    }
-  };
 
   return (
     <div className="page-container">
@@ -100,7 +124,7 @@ const SeasonsPage = () => {
 
                 <button
                   className="btn-action"
-                  onClick={() => handleDelete(season.id)}
+                  onClick={() => openDeleteModal(season.id)}
                 >
                   Delete
                 </button>
@@ -120,6 +144,29 @@ const SeasonsPage = () => {
         season={selectedSeason}
         isEditing={isEditing}
       />
+        {selectedSeason && (
+  <SeasonsUpdateModal
+    isOpen={isOpen}
+    onClose={() => {
+      setIsOpen(false);
+      setSelectedSeason(null);
+    }}
+    onSuccess={fetchSeasons}
+    season={selectedSeason}
+  />
+)}
+
+<ConfirmModal
+  isOpen={isDeleteOpen}
+  title="Delete Season"
+  message="Are you sure you want to delete this season? This action cannot be undone."
+  onConfirm={confirmDelete}
+  onCancel={() => {
+    setIsDeleteOpen(false);
+    setSeasonToDelete(null);
+  }}
+/>
+       
     </div>
   );
 };

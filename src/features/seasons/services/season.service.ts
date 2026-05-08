@@ -38,3 +38,4 @@ export const updateSeason = async (
 export const deleteSeason = async (id: number): Promise<void> => {
   await apiClient.delete(`/Season/${id}`);
 };
+
