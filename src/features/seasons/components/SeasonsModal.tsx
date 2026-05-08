@@ -36,6 +36,13 @@ const SeasonsModal = ({isOpen,onClose, onSuccess}:Props) => {
     toast.error("Please fill in all required fields ");
     return;
   }
+    const start = new Date(formData.startDate);
+    const end = new Date(formData.endDate);
+
+  if (start > end) {
+    toast.error("Start date cannot be greater than end date.");
+    return;
+  }
 
   try {
     const data = await createSeason({
@@ -111,7 +118,7 @@ if (!isOpen) return null;
           onChange={handleChange}
         />
 
-        <button className="btn-edit" type="submit">Add Season</button>
+        <button className="add-button" type="submit">Add Season</button>
       </form>
 
     </div>

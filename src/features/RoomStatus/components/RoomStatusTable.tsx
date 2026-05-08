@@ -1,5 +1,5 @@
 import type { RoomStatus } from '../types/roomStatus.types';
-import '../styles/roomStatus.css';
+import '../styles/roomStatus.module.css';
 
 interface Props {
   rooms: RoomStatus[];

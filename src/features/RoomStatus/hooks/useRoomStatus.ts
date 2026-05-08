@@ -8,13 +8,21 @@ export const useRoomStatus = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setLoading(true);
+  console.log("🔄 useRoomStatus effect fired");
+  console.log("➡️ selectedRoomType:", selectedRoomType);
 
-    getRoomStatusToday(selectedRoomType ?? undefined)
-      .then(setRooms)
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, [selectedRoomType]);
+  setLoading(true);
+
+  getRoomStatusToday(selectedRoomType ?? undefined)
+    .then((data) => {
+      console.log("✅ rooms from API:", data);
+      setRooms(data);
+    })
+    .catch((err) => {
+      console.error("❌ API error:", err);
+    })
+    .finally(() => setLoading(false));
+}, [selectedRoomType]);
 
   return {
     rooms,
