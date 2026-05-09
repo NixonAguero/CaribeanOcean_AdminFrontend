@@ -227,28 +227,19 @@
 }
 
 /* ─── Responsive: Large desktop → shrink links ───────── */
-@media (max-width: 1400px) {
+@media (max-width: 1440px) {
   .navbar-container {
-    padding: 0 32px;
+    padding: 0 24px;
     gap: 16px;
+  }
+
+  .navbar-links {
+    gap: 4px;
   }
 
   .nav-link {
     font-size: 13px;
-    padding: 8px 10px;
-  }
-}
-
-/* ─── Responsive: Small desktop / large tablet ───────── */
-@media (max-width: 1200px) {
-  .navbar-container {
-    padding: 0 24px;
-    gap: 12px;
-  }
-
-  .nav-link {
-    font-size: 12px;
-    padding: 8px 7px;
+    padding: 6px 8px;
   }
 
   .navbar-logo .logo {
@@ -256,12 +247,39 @@
   }
 
   .navbar-logo-main {
-    font-size: 20px;
+    font-size: 22px;
   }
 
   .navbar-logo-sub {
     font-size: 9px;
     letter-spacing: 2px;
+  }
+}
+
+/* ─── Responsive: Small desktop / large tablet ───────── */
+@media (max-width: 1200px) {
+  .navbar-container {
+    padding: 0 20px;
+    gap: 12px;
+  }
+
+  .nav-link {
+    font-size: 12px;
+    padding: 6px 6px;
+    letter-spacing: 0;
+  }
+
+  .navbar-logo .logo {
+    height: 54px;
+  }
+
+  .navbar-logo-main {
+    font-size: 19px;
+  }
+
+  .navbar-logo-sub {
+    font-size: 8px;
+    letter-spacing: 1.5px;
   }
 
   .user-name {
