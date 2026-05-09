@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState } from 'react';
+import type { AddUpdateActionProps } from '../types/add.props';
+import UpdateAddModal from './UpdateAddModal';
 import styles from '../styles/Add.module.css';
-import UpdateAddModal from "./UpdateAddModal";
-import type { AddUpdateActionProps } from "../types/add.props";
-
 
 export default function UpdateAddButton({ add, onUpdate }: AddUpdateActionProps) {
     const [updateClick, setUpdateClick] = useState<boolean>(false);
@@ -16,9 +15,9 @@ export default function UpdateAddButton({ add, onUpdate }: AddUpdateActionProps)
             {updateClick && (
                 <UpdateAddModal
                     isOpen={updateClick}
-                    add={add} 
+                    add={add}
                     onUpdate={onUpdate}
-                    onClose={() => setUpdateClick(false)} 
+                    onClose={() => setUpdateClick(false)}
                 />
             )}
         </>

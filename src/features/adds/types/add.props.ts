@@ -2,13 +2,13 @@ import type { Add } from "./add.types";
 
 export interface tableAddProps {
     adds: Add[];
-    onUpdate: (add: Add) => Promise<void>;
+    onUpdate: (add: Add, newImage: File | null) => Promise<void>;
     onDelete: (id: number) => Promise<void>;
 }
 
 export interface rowAddProps {
     add: Add;
-    onUpdate: (add: Add) => Promise<void>;
+    onUpdate: (add: Add, newImage: File | null) => Promise<void>;
     onDelete: (id: number) => Promise<void>;
 }
 
@@ -21,11 +21,11 @@ export interface AddDeleteActionProps extends SingleAddProps {
 }
 
 export interface AddUpdateActionProps extends SingleAddProps {
-    onUpdate: (add: Add) => Promise<void>;
+    onUpdate: (add: Add, newImage: File | null) => Promise<void>;
 }
 
 export interface createAddProps {
-    onCreate: (add: Add) => Promise<void>;
+    onCreate: (image: File, targetURL: string) => Promise<void>;
 }
 
 export interface createAddModalProps extends createAddProps {
