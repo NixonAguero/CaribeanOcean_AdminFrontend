@@ -10,6 +10,9 @@ import HeroPage from './features/hero/HeroPage';
 import ManagePagesPage from './features/managePages/ManagePagesPage';
 import AddPage from './features/adds/AddPage';
 import GalleryManagePage from './features/gallery/GalleryManagePage';
+import LoginPage from './features/authentication/pages/LoginPage';
+import RegisterPage from './features/authentication/pages/RegisterPage';
+import ProtectedRoute from './features/authentication/components/ProtectedRoute';
 
 function App() {
   return (
@@ -31,22 +34,29 @@ function App() {
         }}
       />
 
-      <Layout>
-        <Routes>
+      <Routes>
+        <Route path="/admin/login" element={<LoginPage />} />
+        <Route path="/admin/register" element={<RegisterPage />} />
 
-          <Route path="/admin/pages" element={<ManagePagesPage />} />
-          <Route path="/admin/rooms" element={<RoomTypePage />} />
-          <Route path="/admin/reservations" element={<ReservationsPage />} />
-          <Route path="/admin/status" element={<RoomStatusPage />} />
-          <Route path="/admin/season" element={<SeasonsPage />} />
-          <Route path="/admin/offers" element={<Offers />} />
-          <Route path="/admin/hero" element={<HeroPage />} />
-          <Route path="/admin/advertising" element={<AddPage />} />
-          <Route path="/admin/gallery" element={<GalleryManagePage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<Layout />}>
+            <Route path="/admin/pages" element={<ManagePagesPage />} />
+            <Route path="/admin/rooms" element={<RoomTypePage />} />
+            <Route path="/admin/reservations" element={<ReservationsPage />} />
+            <Route path="/admin/status" element={<RoomStatusPage />} />
+            <Route path="/admin/season" element={<SeasonsPage />} />
+            <Route path="/admin/offers" element={<Offers />} />
+            <Route path="/admin/hero" element={<HeroPage />} />
+            <Route path="/admin/advertising" element={<AddPage />} />
+            <Route path="/admin/gallery" element={<GalleryManagePage />} />
+            <Route path="/admin" element={<Navigate to="/admin/rooms" replace />} />
+            <Route path="" element={<Navigate to="/admin/rooms" replace />} />
+            <Route path="*" element={<Navigate to="/admin/rooms" replace />} />
+          </Route>
+        </Route>
 
-          <Route path="" element={<Navigate to="/admin/rooms" replace />} />
-        </Routes>
-      </Layout>
+        <Route path="*" element={<Navigate to="/admin/login" replace />} />
+      </Routes>
 
     </>
   );

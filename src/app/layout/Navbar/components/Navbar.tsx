@@ -8,11 +8,13 @@ import NavbarLinks from "./NavbarLinks";
 import UserSection from "./UserSection";
 import MobileMenu from "./MobileMenu";
 import { logout } from "../services/auth.service";
+import { getUsername } from "../../../../features/authentication/services/session.service";
 
 export default function Navbar() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const location = useLocation();
+    const username = getUsername();
 
     const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
     const closeMenu = () => setIsMenuOpen(false);
@@ -42,9 +44,9 @@ export default function Navbar() {
 
                 <span className="navbar-divider" />
 
-                <UserSection onLogout={logout} />
+                <UserSection username={username} onLogout={logout} />
 
-                <MobileMenu isOpen={isMenuOpen} onClose={closeMenu} onLogout={logout} />
+                <MobileMenu isOpen={isMenuOpen} onClose={closeMenu} username={username} onLogout={logout} />
 
             </div>
         </nav>
