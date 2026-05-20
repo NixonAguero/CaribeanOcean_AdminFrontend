@@ -9,10 +9,11 @@ import { saveSession } from "./session.service";
 
 function normalizeSession(response: LoginResponse, fallbackUsername: string): AuthSession {
   const token = response.token ?? "";
+  const userId = response.userId;
   const username = response.username ?? fallbackUsername;
   const expiresAt = response.expiresAt;
 
-  return { token, username, expiresAt };
+  return { token, userId, username, expiresAt };
 }
 
 export async function login(payload: LoginRequest): Promise<AuthSession> {

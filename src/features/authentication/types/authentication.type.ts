@@ -12,12 +12,14 @@ export interface RegisterRequest {
 
 export interface LoginResponse {
   token?: string;
+  userId : number;
   username?: string;
   expiresAt?: string;
 }
 
 export interface AuthSession {
   token: string;
+  userId : number;
   username: string;
   expiresAt?: string;
 }
