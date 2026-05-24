@@ -6,24 +6,29 @@ export const useDateVerification = () => {
     const [isEditingDates, setIsEditingDates] = useState(false);
     const [tempDates, setTempDates] = useState({ checkIn: "", checkOut: "" });
 
-    const { isLoading: isVerifying, error: verificationError, withAsync } = useAsyncState();
+    const { isLoading: isVerifying, error: verificationError, setError, withAsync } = useAsyncState();
 
     const startEditing = (currentCheckIn: string, currentCheckOut: string) => {
         setTempDates({ checkIn: currentCheckIn, checkOut: currentCheckOut });
         setIsEditingDates(true);
     }
 
+    const resetError = () => {
+        setError(null);
+    }
+
     const cancelEditing = () => {
         setIsEditingDates(false);
+        resetError();
     };
 
-    const verifyDates = async (roomTypeId: number,
+    const verifyDates = async (reservationId: number,roomTypeId: number,
         onSuccess: (newCheckIn: string, newCheckOut: string) => void
     ) => {
         if (!tempDates.checkIn || !tempDates.checkOut) return;
         const { hasError } = await withAsync(async () => {
-            console.log(roomTypeId, tempDates.checkIn, tempDates.checkOut);
-            const isAvailable = await reservationService.hasAvailableRoom(roomTypeId, tempDates.checkIn, tempDates.checkOut);
+            console.log(reservationId,roomTypeId, tempDates.checkIn, tempDates.checkOut);
+            const isAvailable = await reservationService.hasAvailableRoomForUpdate(reservationId,roomTypeId, tempDates.checkIn, tempDates.checkOut);
 
  
             if (!isAvailable) {
@@ -43,6 +48,7 @@ export const useDateVerification = () => {
         setTempDates,
         startEditing,
         cancelEditing,
-        verifyDates
+        verifyDates,
+        resetError
     };
 }

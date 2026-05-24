@@ -43,11 +43,11 @@ const ReservationsPage = () => {
   const handleFormSubmit = async (formData: any) => {
     if (data.selectedRes) {
       const result = await updateReservation(data.selectedRes.id, formData);
-      if (!result.hasError) showSuccess("¡Reserva actualizada con éxito!");
+      if (!result.hasError) showSuccess("¡Reservation updated successfully!");
       return result
     } else {
       const result = await createReservation(formData);
-      if (!result.hasError) showSuccess("¡Reserva creada exitosamente!");
+      if (!result.hasError) showSuccess("¡Reservation created successfully!");
       return result;
     }
   };
@@ -69,16 +69,16 @@ const ReservationsPage = () => {
         <hr className="page-header__divider" />
         {/* Usalo para que el spinner ocupe el centro de la pantalla mientras carga */}
         {loading && reservations.length === 0 && (
-          <Spinner centered size="lg" message="Cargando reservaciones del sistema..." />
+          <Spinner centered size="lg" message="Loading reservations from the system..." />
         )}
         {/* Usa el Alert si hubo un colapso en la base de datos de C# */}
         {error && (
-          <Alert type="error" title="Fallo de conexión crítico">
+          <Alert type="error" title="Critical Connection Failure">
             {error}
           </Alert>
         )}
         {successMessage && (
-          <Alert type="success" title="¡Acción Exitosa!">
+          <Alert type="success" title=" ¡Successful Action!">
             {successMessage}
           </Alert>
         )}
@@ -119,7 +119,7 @@ const ReservationsPage = () => {
           confirmText="Eliminate"
           onConfirm={async () => {
             const result = await deleteReservation(data.selectedRes!.id);
-            if (!result.hasError) showSuccess("La reserva fue eliminada permanentemente.");
+            if (!result.hasError) showSuccess("The reservation was successfully deleted.");
             return result;
           }}
         />

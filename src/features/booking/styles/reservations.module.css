@@ -15,12 +15,12 @@
 }
 
 .table th {
-  background-color: var(--admin-table-header);
+  background-color: var(--color-ocean-deep);
   padding: var(--space-4) var(--space-5);
   font-family: var(--font-ui);
   font-size: 12px;
   font-weight: 600;
-  color: var(--color-ocean-deep);
+  color: #ffffff;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-bottom: 2px solid var(--admin-card-bg);
