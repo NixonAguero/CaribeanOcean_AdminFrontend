@@ -4,6 +4,7 @@ export interface RoomType {
   description: string;
   dailyRate: number;
   imageUrl: string;
+  features?: string[];
   updatedAt: string;
 }
 
@@ -12,4 +13,5 @@ export interface UpdateRoomTypePayload {
   description?: string;
   dailyRate?: number;
   imageUrl?: string;
+  features?: string[];
 }

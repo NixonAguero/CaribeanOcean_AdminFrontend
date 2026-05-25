@@ -7,6 +7,7 @@ import SeasonsPage from './features/seasons/SeasonsPage';
 import Offers from './features/offers/components/Offers';
 import Layout from './app/layout/MainLayout';
 import HeroPage from './features/hero/HeroPage';
+import AboutUsPage from './features/aboutUs/AboutUsPage';
 import ManagePagesPage from './features/managePages/ManagePagesPage';
 import AddPage from './features/adds/AddPage';
 import GalleryManagePage from './features/gallery/GalleryManagePage';
@@ -47,6 +48,7 @@ function App() {
             <Route path="/admin/season" element={<SeasonsPage />} />
             <Route path="/admin/offers" element={<Offers />} />
             <Route path="/admin/hero" element={<HeroPage />} />
+            <Route path="/admin/about-us" element={<AboutUsPage />} />
             <Route path="/admin/advertising" element={<AddPage />} />
             <Route path="/admin/gallery" element={<GalleryManagePage />} />
             <Route path="/admin" element={<Navigate to="/admin/rooms" replace />} />
@@ -57,6 +59,7 @@ function App() {
 
         <Route path="*" element={<Navigate to="/admin/login" replace />} />
       </Routes>
+
 
     </>
   );
