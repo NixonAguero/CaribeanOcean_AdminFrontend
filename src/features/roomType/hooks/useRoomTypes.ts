@@ -21,11 +21,27 @@ export const useRoomTypes = () => {
         });
     };
 
+    const createRoomType = async (payload: FormData) => {
+        return await withAsync(async () => {
+            await roomTypeService.create(payload);
+            await fetchRoomTypes();
+        });
+    };
+
+    const deleteRoomType = async (id: number) => {
+        return await withAsync(async () => {
+            await roomTypeService.delete(id);
+            await fetchRoomTypes();
+        });
+    };
+
     return {
         roomTypes,
         loading: isLoading,
         error,
         fetchRoomTypes,
         updateRoomType,
+        createRoomType,
+        deleteRoomType,
     };
 };

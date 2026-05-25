@@ -1,15 +1,15 @@
 import { useState, useEffect, useRef } from 'react';
-import type { RoomType } from '../types/rooms.types';
 import styles from '../styles/modals.module.css';
 
-interface UpdateRoomTypeModalProps {
+interface CreateRoomTypeModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onUpdate: (id: number, payload: FormData) => Promise<{ data: unknown; hasError: boolean } | undefined>;
-  roomType: RoomType | null;
+  onCreate: (payload: FormData) => Promise<{ data: unknown; hasError: boolean } | undefined>;
 }
 
-export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomType }: UpdateRoomTypeModalProps) {
+
+
+export default function CreateRoomTypeModal({ isOpen, onClose, onCreate }: CreateRoomTypeModalProps) {
   const [formData, setFormData] = useState<{
     name: string;
     description: string;
@@ -18,7 +18,7 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
   }>({
     name: '',
     description: '',
-    dailyRate: 0,
+    dailyRate: '',
     image: null,
   });
   const [featuresInput, setFeaturesInput] = useState<[string, string, string]>(['', '', '']);
@@ -29,26 +29,20 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (roomType && isOpen) {
-      const existingFeatures = roomType.features ?? [];
+    if (isOpen) {
       setFormData({
-        name: roomType.name,
-        description: roomType.description,
-        dailyRate: roomType.dailyRate,
+        name: '',
+        description: '',
+        dailyRate: '',
         image: null,
       });
-      // Pre-populate the 3 text inputs with the existing feature values
-      setFeaturesInput([
-        existingFeatures[0] ?? '',
-        existingFeatures[1] ?? '',
-        existingFeatures[2] ?? '',
-      ]);
-      setPreviewUrl(roomType.imageUrl);
+      setFeaturesInput(['', '', '']);
+      setPreviewUrl(null);
       setSubmitError(null);
     }
-  }, [roomType, isOpen]);
+  }, [isOpen]);
 
-  if (!isOpen || !roomType) return null;
+  if (!isOpen) return null;
 
   const handleChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -68,7 +62,6 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!roomType) return;
     
     setIsSubmitting(true);
     setSubmitError(null);
@@ -84,12 +77,12 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
       payload.append('image', formData.image);
     }
 
-    const result = await onUpdate(roomType.id, payload);
+    const result = await onCreate(payload);
 
     setIsSubmitting(false);
 
     if (result?.hasError) {
-      setSubmitError('Error al actualizar el tipo de habitación.');
+      setSubmitError('Error al crear el tipo de habitación. Por favor, intente de nuevo.');
     } else {
       onClose();
     }
@@ -108,8 +101,8 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
               width: '24px', height: '24px', borderRadius: '50%', background: '#FDFCFA', border: '2px solid #1A1A1A',
               color: '#1A1A1A', display: 'flex', alignItems: 'center', justifyContent: 'center', 
               fontSize: '14px', fontWeight: 'bold' 
-            }}>i</span>
-            <h2 className={styles.sectionLabel} style={{ fontSize: '20px' }}>{roomType.name}</h2>
+            }}>+</span>
+            <h2 className={styles.sectionLabel} style={{ fontSize: '20px' }}>Add Room Type</h2>
           </div>
           <button type="button" className={styles.closeButton} onClick={onClose} aria-label="Discard changes and close">
             &times;
@@ -122,6 +115,7 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
           <div className={styles.formGroup} style={{ marginBottom: '20px' }}>
             <input 
               className={styles.input}
+              placeholder="Room Type Name"
               style={{ background: '#FDFCFA', border: '1px solid #E5E7EB', height: '36px', borderRadius: '6px' }}
               type="text" 
               value={formData.name || ''} 
@@ -136,6 +130,7 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
           <div className={styles.formGroup} style={{ marginBottom: '20px' }}>
             <textarea 
               className={styles.input}
+              placeholder="Describe the room features, beds, views..."
               value={formData.description || ''} 
               onChange={e => handleChange('description', e.target.value)}
               style={{ minHeight: '80px', resize: 'vertical', background: '#FDFCFA', border: '1px solid #E5E7EB', borderRadius: '6px', padding: '8px 16px' }}
@@ -149,6 +144,7 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
           <div className={styles.formGroup} style={{ marginBottom: '20px', width: '50%' }}>
             <input 
               className={styles.input}
+              placeholder="0.00"
               style={{ background: '#FDFCFA', border: '1px solid #E5E7EB', height: '36px', borderRadius: '6px' }}
               type="text" 
               inputMode="decimal"
@@ -186,7 +182,18 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
 
           <h3 className={styles.sectionLabel} style={{ marginBottom: '8px' }}>Image</h3>
           <div className={styles.formGroup} style={{ marginBottom: '24px' }}>
-             {previewUrl && <img src={previewUrl} alt="Room" style={{ width: '100%', height: '160px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #E5E7EB', marginBottom: '12px' }} />}
+             {previewUrl ? (
+               <img src={previewUrl} alt="Room" style={{ width: '100%', height: '160px', objectFit: 'cover', borderRadius: '6px', border: '1px solid #E5E7EB', marginBottom: '12px' }} />
+             ) : (
+               <div style={{ 
+                 width: '100%', height: '140px', background: '#F5F0E8', border: '1px dashed #C9B878', 
+                 borderRadius: '6px', display: 'flex', flexDirection: 'column', alignItems: 'center', 
+                 justifyContent: 'center', color: '#6B6B6B', marginBottom: '12px', fontSize: '13px'
+               }}>
+                 <span style={{ fontSize: '24px', marginBottom: '4px' }}>🖼️</span>
+                 No image uploaded yet
+               </div>
+             )}
              <input
                type="file"
                accept="image/jpeg, image/png, image/webp"
@@ -199,7 +206,7 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
 
           <div style={{ display: 'flex', justifyContent: 'flex-start', marginTop: '16px', borderTop: 'none', padding: '0' }}>
             <button type="submit" disabled={isSubmitting} style={{ padding: '8px 16px', background: '#E5E7EB', color: '#1A1A1A', border: '1px solid #D1D5DB', borderRadius: '4px', fontSize: '14px', cursor: isSubmitting ? 'not-allowed' : 'pointer' }}>
-              {isSubmitting ? 'Saving...' : 'Save changes'}
+              {isSubmitting ? 'Creating...' : 'Create Room Type'}
             </button>
           </div>
         </form>

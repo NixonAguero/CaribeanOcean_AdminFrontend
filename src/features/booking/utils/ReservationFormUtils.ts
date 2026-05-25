@@ -1,8 +1,6 @@
 import { type Reservation, type CreateReservation, type UpdateReservation, type WizardData, type ReservationFormData } from '../types/reservation.types';
 
 
-const formatDateForApi = (date: string) => new Date(date).toISOString();
-
 const formatDateForInput = (date: string) =>
   new Date(date).toISOString().split('T')[0];
 
