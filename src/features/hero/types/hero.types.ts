@@ -10,3 +10,9 @@ export interface HeroData {
   description: string;
   images: HeroImage[];
 }
+
+export interface HeroMetadata {
+  title: string;
+  subtitle: string;
+  description: string;
+}

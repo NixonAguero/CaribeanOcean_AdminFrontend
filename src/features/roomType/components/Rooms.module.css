@@ -84,3 +84,23 @@
 .cardActions .btn-action {
   flex: 1;
 }
+
+.cardFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.featureBadge {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  background: var(--badge-available-bg);
+  color: var(--badge-available-text);
+  border: 1px solid rgba(29, 158, 117, 0.15);
+}

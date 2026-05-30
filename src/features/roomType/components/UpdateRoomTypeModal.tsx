@@ -21,6 +21,7 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
     dailyRate: 0,
     image: null,
   });
+  const [featuresInput, setFeaturesInput] = useState<[string, string, string]>(['', '', '']);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -29,12 +30,19 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
 
   useEffect(() => {
     if (roomType && isOpen) {
+      const existingFeatures = roomType.features ?? [];
       setFormData({
         name: roomType.name,
         description: roomType.description,
         dailyRate: roomType.dailyRate,
         image: null,
       });
+      // Pre-populate the 3 text inputs with the existing feature values
+      setFeaturesInput([
+        existingFeatures[0] ?? '',
+        existingFeatures[1] ?? '',
+        existingFeatures[2] ?? '',
+      ]);
       setPreviewUrl(roomType.imageUrl);
       setSubmitError(null);
     }
@@ -42,7 +50,7 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
 
   if (!isOpen || !roomType) return null;
 
-  const handleChange = (field: string, value: string | number) => {
+  const handleChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
 
@@ -65,10 +73,13 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
     setIsSubmitting(true);
     setSubmitError(null);
 
+    const features = featuresInput.filter(f => f.trim() !== '');
+
     const payload = new FormData();
     payload.append('name', formData.name);
     payload.append('description', formData.description);
     payload.append('dailyRate', (formData.dailyRate || 0).toString());
+    payload.append('features', JSON.stringify(features));
     if (formData.image) {
       payload.append('image', formData.image);
     }
@@ -85,8 +96,12 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
   };
 
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent} style={{ maxWidth: '420px', padding: '16px' }}>
+    <div className={styles.modalOverlay} onClick={onClose}>
+      <div 
+        className={styles.modalContent} 
+        style={{ maxWidth: '420px', padding: '16px' }}
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className={styles.modalHeader} style={{ padding: '0 0 16px 0', borderBottom: 'none', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
             <span style={{ 
@@ -148,6 +163,25 @@ export default function UpdateRoomTypeModal({ isOpen, onClose, onUpdate, roomTyp
               onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Please fill out this field.')}
               onInput={e => (e.target as HTMLInputElement).setCustomValidity('')}
             />
+          </div>
+
+          <h3 className={styles.sectionLabel} style={{ marginBottom: '8px' }}>Features</h3>
+          <div className={styles.formGroup} style={{ marginBottom: '20px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+            {([0, 1, 2] as const).map((idx) => (
+              <input
+                key={idx}
+                className={styles.input}
+                type="text"
+                placeholder={`Feature ${idx + 1} (optional)`}
+                value={featuresInput[idx]}
+                onChange={e => {
+                  const updated: [string, string, string] = [...featuresInput] as [string, string, string];
+                  updated[idx] = e.target.value;
+                  setFeaturesInput(updated);
+                }}
+                style={{ background: '#FDFCFA', border: '1px solid #E5E7EB', height: '36px', borderRadius: '6px' }}
+              />
+            ))}
           </div>
 
           <h3 className={styles.sectionLabel} style={{ marginBottom: '8px' }}>Image</h3>

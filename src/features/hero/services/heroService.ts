@@ -1,5 +1,5 @@
 import apiClient from '../../../shared/services/apliClient';
-import type { HeroImage } from '../types/hero.types';
+import type { HeroImage, HeroMetadata } from '../types/hero.types';
 
 export const heroService = {
   async getImages(): Promise<HeroImage[]> {
@@ -21,5 +21,14 @@ export const heroService = {
 
   async deleteImage(id: number): Promise<void> {
     await apiClient.delete(`/Hero/images/${id}`);
+  },
+
+  async getMetadata(): Promise<HeroMetadata> {
+    const response = await apiClient.get<HeroMetadata>('/Hero');
+    return response.data;
+  },
+
+  async updateMetadata(payload: HeroMetadata): Promise<void> {
+    await apiClient.put('/Hero/text', payload);
   },
 };

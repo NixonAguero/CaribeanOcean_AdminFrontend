@@ -29,6 +29,7 @@ export const galleryService = {
       method: "POST",
       body: form,
     });
+    console.log("Add image response:", res);
     if (!res.ok) throw new Error("Failed to add image");
   },
 

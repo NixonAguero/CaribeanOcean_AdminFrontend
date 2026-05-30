@@ -7,9 +7,15 @@ import SeasonsPage from './features/seasons/SeasonsPage';
 import Offers from './features/offers/components/Offers';
 import Layout from './app/layout/MainLayout';
 import HeroPage from './features/hero/HeroPage';
+import AboutUsPage from './features/aboutUs/AboutUsPage';
 import ManagePagesPage from './features/managePages/ManagePagesPage';
+import AddPage from './features/adds/AddPage';
 import GalleryManagePage from './features/gallery/GalleryManagePage';
 import FacilitiesPage from './features/Facilities/components/FacilitiesPage';
+import LoginPage from './features/authentication/pages/LoginPage';
+import RegisterPage from './features/authentication/pages/RegisterPage';
+import ProtectedRoute from './features/authentication/components/ProtectedRoute';
+import ManageRoomsPage from './features/rooms/ManageRoomsPage';
 
 function App() {
   return (
@@ -31,21 +37,33 @@ function App() {
         }}
       />
 
-      <Layout>
-        <Routes>
+      <Routes>
+        <Route path="/admin/login" element={<LoginPage />} />
+        <Route path="/admin/register" element={<RegisterPage />} />
 
-          <Route path="/admin/pages" element={<ManagePagesPage />} />
-          <Route path="/admin/rooms" element={<RoomTypePage />} />
-          <Route path="/admin/reservations" element={<ReservationsPage />} />
-          <Route path="/admin/status" element={<RoomStatusPage />} />
-          <Route path="/admin/season" element={<SeasonsPage />} />
-          <Route path="/admin/offers" element={<Offers />} />
-          <Route path="/admin/hero" element={<HeroPage />} />
-          <Route path="/admin/gallery" element={<GalleryManagePage />} />
-          <Route path="/admin/facilities" element={<FacilitiesPage />} />
-          <Route path="" element={<Navigate to="/admin/rooms" replace />} />
-        </Routes>
-      </Layout>
+        <Route element={<ProtectedRoute />}>
+          <Route element={<Layout />}>
+            <Route path="/admin/pages" element={<ManagePagesPage />} />
+            <Route path="/admin/rooms" element={<RoomTypePage />} />
+            <Route path="/admin/rooms/:roomTypeId" element={<ManageRoomsPage />} />
+            <Route path="/admin/reservations" element={<ReservationsPage />} />
+            <Route path="/admin/status" element={<RoomStatusPage />} />
+            <Route path="/admin/season" element={<SeasonsPage />} />
+            <Route path="/admin/offers" element={<Offers />} />
+            <Route path="/admin/hero" element={<HeroPage />} />
+            <Route path="/admin/about-us" element={<AboutUsPage />} />
+            <Route path="/admin/advertising" element={<AddPage />} />
+            <Route path="/admin/gallery" element={<GalleryManagePage />} />
+            <Route path="/admin" element={<Navigate to="/admin/rooms" replace />} />
+            <Route path="" element={<Navigate to="/admin/rooms" replace />} />
+            <Route path="*" element={<Navigate to="/admin/rooms" replace />} />
+            <Route path="/admin/facilities" element={<FacilitiesPage />} />
+          </Route>
+        </Route>
+
+        <Route path="*" element={<Navigate to="/admin/login" replace />} />
+      </Routes>
+
 
     </>
   );

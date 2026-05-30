@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import type { Offer } from '../../types/offers.type';
-import styles from '../../styles/Offers.module.css';
+import { useState } from "react";
+import type { Add } from "../types/add.types";
+import styles from '../styles/Add.module.css';
 
 interface Props {
-    offer: Offer;
+    add: Add;
     onDelete: (id: number) => Promise<void>;
     onClose: () => void;
 }
 
-export default function DeleteOfferModal({ offer, onDelete, onClose }: Props) {
+export default function DeleteAddModal({ add, onDelete, onClose }: Props) {
     const [isDeleting, setIsDeleting] = useState(false);
     const [error, setError] = useState('');
 
@@ -16,10 +16,10 @@ export default function DeleteOfferModal({ offer, onDelete, onClose }: Props) {
         setIsDeleting(true);
         setError('');
         try {
-            await onDelete(offer.id);
+            await onDelete(add.id);
             onClose();
         } catch (err: any) {
-            setError(err.message || 'Failed to delete offer.');
+            setError(err.message || 'Failed to delete add.');
             setIsDeleting(false);
         }
     };
@@ -27,11 +27,11 @@ export default function DeleteOfferModal({ offer, onDelete, onClose }: Props) {
     return (
         <div className={styles.modalOverlay}>
             <div className={styles.modalContent}>
-                <h2 className={styles.modalTitle}>Delete Offer</h2>
+                <h2 className={styles.modalTitle}>Delete Add</h2>
 
                 {error && <p className={styles.error}>{error}</p>}
 
-                <p>Are you sure you want to delete the offer <strong>"{offer.name}"</strong>? This action cannot be undone.</p>
+                <p>Are you sure you want to delete the add? This action cannot be undone.</p>
 
                 <div className={styles.modalActions}>
                     <button className={styles.cancelButton} onClick={onClose} disabled={isDeleting}>
