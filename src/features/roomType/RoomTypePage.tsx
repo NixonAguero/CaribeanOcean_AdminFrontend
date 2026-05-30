@@ -7,6 +7,7 @@ import UpdateRoomTypeModal from './components/UpdateRoomTypeModal';
 import CreateRoomTypeModal from './components/CreateRoomTypeModal';
 import DeleteRoomTypeModal from './components/DeleteRoomTypeModal';
 import styles from './styles/rooms.module.css';
+import { useNavigate } from 'react-router-dom';
 
 function RoomTypePage() {
   const { 
@@ -24,12 +25,15 @@ function RoomTypePage() {
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchRoomTypes();
   }, [fetchRoomTypes]);
 
-  const handleManage = (_roomType: RoomType): void => {};
+  const handleManage = (roomType: RoomType): void => {
+    navigate(`/admin/rooms/${roomType.id}`);
+  };
 
   const handleUpdate = (roomType: RoomType): void => {
     setSelectedRoom(roomType);

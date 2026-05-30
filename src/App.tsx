@@ -14,6 +14,7 @@ import GalleryManagePage from './features/gallery/GalleryManagePage';
 import LoginPage from './features/authentication/pages/LoginPage';
 import RegisterPage from './features/authentication/pages/RegisterPage';
 import ProtectedRoute from './features/authentication/components/ProtectedRoute';
+import ManageRoomsPage from './features/rooms/ManageRoomsPage';
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route element={<Layout />}>
             <Route path="/admin/pages" element={<ManagePagesPage />} />
             <Route path="/admin/rooms" element={<RoomTypePage />} />
+            <Route path="/admin/rooms/:roomTypeId" element={<ManageRoomsPage />} />
             <Route path="/admin/reservations" element={<ReservationsPage />} />
             <Route path="/admin/status" element={<RoomStatusPage />} />
             <Route path="/admin/season" element={<SeasonsPage />} />
