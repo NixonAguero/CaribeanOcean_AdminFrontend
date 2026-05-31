@@ -32,6 +32,7 @@ const ReservationsTable = ({
             <th>Code</th>
             <th>Guest</th>
             <th>Space</th>
+            <th>Email</th>
             <th>Check In/Out</th>
             <th>Total Cost</th>
             <th className={styles.actionsHeader}>Actions</th>
@@ -45,6 +46,7 @@ const ReservationsTable = ({
                 {res.clientName} {res.clientLastname}
               </td>
               <td>{res.roomTypeName}</td>
+              <td>{res.email}</td>
               <td>
                 <span className={`text-body--secondary ${styles.dateCellText}`}>
                   {new Date(res.checkIn).toLocaleDateString()} - <br/>

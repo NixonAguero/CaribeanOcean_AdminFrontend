@@ -135,6 +135,24 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.2;
 }
 
+.tableContainer {
+    background-color: #FDFCFA;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+}
+.offersTable {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+.offersTable th {
+    background-color: #0C3D52;
+    color: white;
+    padding: 1rem;
+    font-weight: 600;
+}
+
 /* Display titles — Cormorant Garamond */
 .heading-display {
   font-family: var(--font-display);

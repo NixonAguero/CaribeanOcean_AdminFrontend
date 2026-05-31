@@ -1,8 +1,14 @@
-import type { OffersTableProps } from '../../types/offers.props'
+import type { Offer } from '../types/offers.type'
 import OfferRow from './OffersRow'
-import styles from '../../styles/Offers.module.css'
+import styles from '../styles/Offers.module.css'
 
-export default function OfferTable({ offers, onUpdate, onDelete }: OffersTableProps) {
+interface Props {
+    offers: Offer[];
+    onEditClick: (offer: Offer) => void;
+    onDeleteClick: (offer: Offer) => void;
+}
+
+export default function OfferTable({ offers, onEditClick, onDeleteClick }: Props) {
     return (
         <table className={styles.offersTable}>
             <thead>
@@ -21,8 +27,8 @@ export default function OfferTable({ offers, onUpdate, onDelete }: OffersTablePr
                     <OfferRow
                         key={offer.id}
                         offer={offer}
-                        onUpdate={onUpdate}
-                        onDelete={onDelete}
+                        onEditClick={() => onEditClick(offer)}
+                        onDeleteClick={() => onDeleteClick(offer)}
                     />
                 )}
             </tbody>

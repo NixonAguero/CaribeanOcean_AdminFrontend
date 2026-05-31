@@ -5,9 +5,10 @@ interface RoomCardProps {
   roomType: RoomType;
   onManage: (roomType: RoomType) => void;
   onUpdate: (roomType: RoomType) => void;
+  onDelete: (roomType: RoomType) => void;
 }
 
-function RoomCard({ roomType, onManage, onUpdate }: RoomCardProps) {
+function RoomCard({ roomType, onManage, onUpdate, onDelete }: RoomCardProps) {
   const formattedPrice = `$${roomType.dailyRate.toLocaleString()}`;
 
   return (
@@ -25,6 +26,16 @@ function RoomCard({ roomType, onManage, onUpdate }: RoomCardProps) {
         <h3 className={styles.cardName}>{roomType.name}</h3>
         <p className={styles.cardPrice}>{formattedPrice}</p>
 
+        {roomType.features && roomType.features.length > 0 && (
+          <div className={styles.cardFeatures} id={`room-features-${roomType.id}`}>
+            {roomType.features.map((feature, idx) => (
+              <span key={idx} className={styles.featureBadge}>
+                {feature}
+              </span>
+            ))}
+          </div>
+        )}
+
         <div className={styles.cardActions}>
           <button
             className="btn-action"
@@ -39,6 +50,13 @@ function RoomCard({ roomType, onManage, onUpdate }: RoomCardProps) {
             id={`update-btn-${roomType.id}`}
           >
             Update
+          </button>
+          <button
+            className="btn-action btn-action--delete"
+            onClick={() => onDelete(roomType)}
+            id={`delete-btn-${roomType.id}`}
+          >
+            Delete
           </button>
         </div>
       </div>

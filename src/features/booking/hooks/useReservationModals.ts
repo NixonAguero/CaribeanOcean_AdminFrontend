@@ -13,7 +13,7 @@ export const useReservationsModals = () => {
     // Estados de datos temporales (selecciones)
     const [selectedRes, setSelectedRes] = useState<Reservation | null>(null);
     const [wizardData, setWizardData] = useState<WizardData | null>(null);
-
+    
     const openAddFlow = () => {
         setSelectedRes(null);
         setWizardData(null);

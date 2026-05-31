@@ -4,10 +4,11 @@ import React, { useState, useEffect } from 'react';
 
 import styles from '../styles/modals.module.css';
 import { buildCreatePayload, buildUpdatePayload, buildFormDataFromReservation, buildFormDataFromWizard } from '../utils/ReservationFormUtils';
-import { type ReservationFormData, type Reservation, type WizardData } from '../types/reservation.types';
+import { type ReservationFormData, type Reservation, type WizardData, type ReservationPriceResult } from '../types/reservation.types';
 import { useDateVerification } from '../hooks/useDateVerification';
 import { Alert } from '../../../shared/components/Alert/Alert';
 import { Spinner } from '../../../shared/components/Spinner/Spinner';
+import { reservationService } from '../services/reservationService';
 
 interface ReservationFormModalProps {
   isOpen: boolean;
@@ -30,33 +31,85 @@ const ReservationFormModal = ({
   const isUpdating = !!reservation;
 
 
-  // 👇 Añadimos manejadores exclusivos para la confirmación de este form
+  //  Añadimos manejadores exclusivos para la confirmación de este form
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const [pricePreview, setPricePreview] = useState<ReservationPriceResult | null>(null);
+  const [isPriceLoading, setIsPriceLoading] = useState(false);
+  const [priceError, setPriceError] = useState<string | null>(null);
+
+  //detalles de show price details
+  const [showPriceDetails, setShowPriceDetails] = useState(false);
+
+  const calculatePricePreview = async () => {
+    if (!formData.roomTypeId || !formData.checkIn || !formData.checkOut) {
+      setPricePreview(null);
+      return;
+    }
+
+    try {
+      setIsPriceLoading(true);
+      setPriceError(null);
+
+      const preview = await reservationService.previewPrice({
+        roomTypeId: formData.roomTypeId,
+        checkIn: formData.checkIn,
+        checkOut: formData.checkOut,
+        applyOffers: formData.applyOffers,
+        selectedOfferId: formData.applyOffers ? formData.selectedOfferId : null,
+      });
+
+      setPricePreview(preview);
+      console.log(preview);
+    } catch {
+      setPricePreview(null);
+      setPriceError("Could not calculate reservation price.");
+    } finally {
+      setIsPriceLoading(false);
+    }
+  };
+
+
+
 
   // --- FORM STATE ---
   const [formData, setFormData] = useState<ReservationFormData>({
     clientName: "",
     clientLastname: "",
+    email: "",
     checkIn: "",
     checkOut: "",
     roomTypeId: 0,
-    seasonId: 1,
     cardNumber: "",
-    totalAmount: 0,
+    applyOffers: false,
+    selectedOfferId: null,
   });
 
   const INITIAL_FORM_DATA = {
-    clientName: '',
-    clientLastname: '',
-    checkIn: '',
-    checkOut: '',
+    clientName: "",
+    clientLastname: "",
+    email: "",
+    checkIn: "",
+    checkOut: "",
     roomTypeId: 0,
-    seasonId: 1,
-    cardNumber: '',
-    totalAmount: 0,
+    cardNumber: "",
+    applyOffers: false,
+    selectedOfferId: null,
   };
 
+  useEffect(() => {
+
+
+    calculatePricePreview();
+  }, [
+    formData.roomTypeId,
+    formData.checkIn,
+    formData.checkOut,
+    formData.applyOffers,
+    formData.selectedOfferId,
+    isUpdating,
+  ]);
 
   const verificationFlow = useDateVerification();
   // When the modal opens, reset the form state based on what was passed in
@@ -72,7 +125,7 @@ const ReservationFormModal = ({
       setFormData(buildFormDataFromWizard((wizardData)))
       return;
     }
-
+    verificationFlow
     setFormData(INITIAL_FORM_DATA);
   }, [isOpen, isUpdating, reservation, wizardData]);
 
@@ -197,7 +250,7 @@ const ReservationFormModal = ({
                         Cancel
                       </button>
                       <button type="button" className="btn-primary"
-                        onClick={() => verificationFlow.verifyDates(formData.roomTypeId, (newIn, newOut) => {
+                        onClick={() => verificationFlow.verifyDates(reservation!.id, formData.roomTypeId, (newIn, newOut) => {
                           updateFormField('checkIn', newIn);
                           updateFormField('checkOut', newOut);
                         })}
@@ -226,15 +279,17 @@ const ReservationFormModal = ({
                   <option value={2}>Ocean View Suite</option>
                 </select>
               </div>
-              <div className={styles.formGroup}>
-                <label className={styles.label}>Season</label>
-                <select required className={styles.input}
-                  value={formData.seasonId} onChange={(e) => updateFormField('seasonId', Number(e.target.value))}>
-                  <option value={1}>High Season</option>
-                  <option value={2}>Low Season</option>
-                </select>
-              </div>
 
+              <div className={`${styles.formGroup} ${styles.fullWidth}`}>
+                <label className={styles.label}>Email</label>
+                <input
+                  required
+                  className={styles.input}
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => updateFormField('email', e.target.value)}
+                />
+              </div>
               {/* Payment Info */}
               <div className={`${styles.formGroup} ${styles.fullWidth}`}>
                 <label className={styles.label}>Credit Card Number</label>
@@ -245,12 +300,71 @@ const ReservationFormModal = ({
               </div>
 
               <div className={`${styles.formGroup} ${styles.fullWidth}`}>
-                <label className={styles.label}>Total Amount ($)</label>
-                <input required className={styles.input} type="number" step="0.01"
-                  value={formData.totalAmount || ''} onChange={(e) => updateFormField('totalAmount', Number(e.target.value))} />
-              </div>
-            </div>
+                <label className={styles.label}>Total Amount</label>
 
+                <div className={styles.readOnlyAmountBox}>
+                  {isPriceLoading ? (
+                    <span>Calculating...</span>
+                  ) : priceError ? (
+                    <span className={styles.errorText}>{priceError}</span>
+                  ) : pricePreview ? (
+                    <div>
+                      <strong>${pricePreview.totalAmount.toFixed(2)}</strong>
+                      <p>
+                        {pricePreview.nightCount} nights · Avg. $
+                        {pricePreview.averageNightlyRate.toFixed(2)} / night
+                      </p>
+
+                      {isUpdating && (
+                        <small>This is the recalculated amount for the new dates.</small>
+                      )}
+                    </div>
+                  ) : isUpdating ? (
+                    <div>
+                      <strong>${reservation?.totalAmount?.toFixed(2)}</strong>
+                      <p>Current reservation amount</p>
+                    </div>
+                  ) : (
+                    <span>Select room type and dates to calculate price.</span>
+                  )}
+                </div>
+                {pricePreview && (
+                  <button
+                    type="button"
+                    className={styles.priceDetailsButton}
+                    onClick={() => setShowPriceDetails((prev) => !prev)}
+
+                  >
+                    {showPriceDetails ? "Hide price details" : "View price details"}
+                  </button>
+                )}
+              </div>
+
+            </div>
+            {pricePreview && showPriceDetails && (
+              <div className={styles.priceDetailsBox}>
+                <h4>Price breakdown</h4>
+
+                {pricePreview.nights.map((night) => (
+                  <div key={night.stayDate} className={styles.priceDetailRow}>
+                    <div>
+                      <strong>{new Date(night.stayDate).toLocaleDateString()}</strong>
+                      <p>
+                        Base ${night.basePrice.toFixed(2)}
+                        {night.seasonName && (
+                          <> · {night.seasonName} ({night.seasonAdjustmentPercentage}%)</>
+                        )}
+                        {night.offerName && (
+                          <> · {night.offerName} (-{night.offerDiscountPercentage}%)</>
+                        )}
+                      </p>
+                    </div>
+
+                    <span>${night.finalNightPrice.toFixed(2)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
             {submitError && (
               <div style={{ marginTop: '1.5rem' }}>
                 <Alert type="error" title="No se pudo guardar la reserva">{submitError}</Alert>

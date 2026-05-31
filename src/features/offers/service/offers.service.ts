@@ -1,5 +1,6 @@
 import apiClient from "../../../shared/services/apliClient";
 import type { Offer } from "../types/offers.type";
+import { getUserId } from "../../authentication/services/session.service";
 
 const ENDPOINT = '/Offer/admin/offers';
 
@@ -14,7 +15,7 @@ export async function GetOffers(): Promise<Offer[]> {
 
 export async function CreateOffer(offer: Omit<Offer, 'id'>): Promise<Offer> {
     try {
-        offer.updatedBy = 1
+        offer.updatedBy = getUserId() ?? 1;
         const { data } = await apiClient.post<Offer>(ENDPOINT, offer);
         return data;
     } catch (error) {
@@ -24,6 +25,7 @@ export async function CreateOffer(offer: Omit<Offer, 'id'>): Promise<Offer> {
 
 export async function UpdateOffer(offer: Offer): Promise<Offer> {
     try {
+        offer.updatedBy = getUserId() ?? 1;
         const { data } = await apiClient.put<Offer>(ENDPOINT, offer);
         return data;
     } catch (error) {

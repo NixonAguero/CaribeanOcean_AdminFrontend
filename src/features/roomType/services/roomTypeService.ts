@@ -15,6 +15,18 @@ export const roomTypeService = {
         return true;
     },
 
+    async create(payload: FormData): Promise<boolean> {
+        await apiClient.post("/RoomType", payload, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
+        return true;
+    },
+
+    async delete(id: number): Promise<boolean> {
+        await apiClient.delete(`/RoomType/${id}`);
+        return true;
+    },
+
     async getAllAvailableRoomTypes(checkIn: string, checkOut: string): Promise<AvailableRoomTypeInfo[]> {
         const response = await apiClient.post<AvailableRoomTypeInfo[]>("/RoomType/AvailableCount", {
             checkIn,

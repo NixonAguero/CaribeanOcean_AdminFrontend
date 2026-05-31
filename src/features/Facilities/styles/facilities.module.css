@@ -1,0 +1,207 @@
+/* =========================================================
+   FACILITIES PAGE — CSS Module
+   ========================================================= */
+
+/* ----------------------------------------------------------
+   Page header layout
+   ---------------------------------------------------------- */
+.headerFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+/* ----------------------------------------------------------
+   Table wrapper
+   IMPORTANT: overflow-x: auto allows horizontal scrolling
+   on both desktop and mobile when the 7-column table is wider
+   than the viewport. "overflow: hidden" was clipping columns.
+   ---------------------------------------------------------- */
+.tableContainer {
+  background: var(--admin-card-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(201, 184, 120, 0.4);
+  overflow-x: auto;                /* ← was "hidden", now scrolls */
+  -webkit-overflow-scrolling: touch;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  margin-top: var(--space-4);
+}
+
+/* ----------------------------------------------------------
+   Table base
+   ---------------------------------------------------------- */
+.table {
+  width: 100%;
+  min-width: 860px;               /* ← prevents column squashing */
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.table th {
+  background-color: var(--admin-table-header);
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ocean-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--admin-card-bg);
+  white-space: nowrap;            /* ← stops "DISPLAY ORDER" from wrapping */
+}
+
+.table td {
+  padding: var(--space-4) var(--space-5);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--color-text-primary);
+  border-bottom: 1px solid var(--color-sand-white);
+  vertical-align: middle;
+}
+
+/* ----------------------------------------------------------
+   Row hover effect
+   ---------------------------------------------------------- */
+.tableRow {
+  transition: background-color var(--transition-fast), transform var(--transition-fast);
+}
+
+.tableRow:hover {
+  background-color: #faf7f2;
+  transform: translateY(-1px);
+}
+
+.tableRow:last-child td {
+  border-bottom: none;
+}
+
+/* ----------------------------------------------------------
+   Preview image cell
+   Fixed width so the column never collapses.
+   The thumbnail has a fallback min-height so broken images
+   still show a placeholder box instead of collapsing to 0px.
+   ---------------------------------------------------------- */
+.imageCell {
+  width: 100px;
+}
+
+.thumbnail {
+  width: 80px;
+  height: 52px;
+  min-height: 52px;               /* ← stays visible even when src is broken */
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+  display: block;
+  background: var(--color-sand-white);
+}
+
+/* ----------------------------------------------------------
+   Name column
+   ---------------------------------------------------------- */
+.nameHighlight {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  color: var(--color-ocean-deep);
+  white-space: nowrap;
+}
+
+/* ----------------------------------------------------------
+   Description column — truncated with ellipsis
+   ---------------------------------------------------------- */
+.descriptionText {
+  max-width: 220px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+/* ----------------------------------------------------------
+   Features column
+   Tags now wrap horizontally (flex-wrap) instead of stacking.
+   max-width keeps the column from being too wide.
+   ---------------------------------------------------------- */
+.featuresList {
+  display: flex;
+  flex-wrap: wrap;                /* ← was block layout, now wraps tags inline */
+  gap: 4px;
+  max-width: 180px;
+}
+
+.featureTag {
+  background: var(--color-sand-white);
+  color: var(--color-ocean-deep);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;            /* ← each tag stays on one line */
+}
+
+/* ----------------------------------------------------------
+   Display Order column
+   ---------------------------------------------------------- */
+.orderHighlight {
+  font-weight: 600;
+  color: var(--color-caribbean-teal);
+  text-align: center;
+}
+
+/* ----------------------------------------------------------
+   Status badges
+   ---------------------------------------------------------- */
+.badgeActive {
+  background-color: var(--badge-available-bg);
+  color: var(--badge-available-text);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.badgeInactive {
+  background-color: rgba(220, 38, 38, 0.1);
+  color: rgb(220, 38, 38);
+  padding: 4px 10px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* ----------------------------------------------------------
+   Actions cell — buttons aligned right, never wrapping
+   ---------------------------------------------------------- */
+.actionsCell {
+  display: flex;
+  gap: var(--space-2);
+  justify-content: flex-end;
+  flex-wrap: nowrap;              /* ← Update + Delete stay on the same line */
+}
+
+/* ----------------------------------------------------------
+   Empty state
+   ---------------------------------------------------------- */
+.emptyState {
+  padding: 3rem;
+  text-align: center;
+}
+
+/* ----------------------------------------------------------
+   Responsive
+   ---------------------------------------------------------- */
+@media (max-width: 768px) {
+  .headerFlex {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .headerFlex button {
+    width: 100%;
+  }
+}

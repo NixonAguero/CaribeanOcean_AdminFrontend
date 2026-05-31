@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import type { OfferDeleteActionProps } from '../../types/offers.props';
-import DeleteOfferModal from '../modals/DeleteOfferModal';
-import styles from '../../styles/Offers.module.css';
+import { useState } from "react";
+import type { AddDeleteActionProps } from "../types/add.props";
+import styles from "../styles/Add.module.css";
+import DeleteAddModal from "./DeleteAddModal";
 
-export default function DeleteOfferButton({ offer, onDelete }: OfferDeleteActionProps) {
+export default function DeleteAddButton({ add, onDelete }: AddDeleteActionProps) {
     const [deleteClick, setDeleteClick] = useState<boolean>(false);
 
     return (
@@ -11,10 +11,10 @@ export default function DeleteOfferButton({ offer, onDelete }: OfferDeleteAction
             <button className={styles.deleteButton} onClick={() => setDeleteClick(true)}>
                 Delete
             </button>
-
+        
             {deleteClick && (
-                <DeleteOfferModal 
-                    offer={offer} 
+                <DeleteAddModal 
+                    add={add} 
                     onDelete={onDelete}
                     onClose={() => setDeleteClick(false)} 
                 />
