@@ -16,6 +16,7 @@ import LoginPage from './features/authentication/pages/LoginPage';
 import RegisterPage from './features/authentication/pages/RegisterPage';
 import ProtectedRoute from './features/authentication/components/ProtectedRoute';
 import ManageRoomsPage from './features/rooms/ManageRoomsPage';
+import HotelContactsPage from './features/HotelContact/HotelContactPage';
 
 function App() {
   return (
@@ -58,6 +59,7 @@ function App() {
             <Route path="" element={<Navigate to="/admin/rooms" replace />} />
             <Route path="*" element={<Navigate to="/admin/rooms" replace />} />
             <Route path="/admin/facilities" element={<FacilitiesPage />} />
+            <Route path="/admin/HotelContact" element={<HotelContactsPage />} />
           </Route>
         </Route>
 

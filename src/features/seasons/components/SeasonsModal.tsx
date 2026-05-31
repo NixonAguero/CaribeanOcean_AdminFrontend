@@ -3,6 +3,8 @@ import "./SeasonModal.css";
 import { createSeason } from "../services/season.service";
 import type { SeasonType } from "../types/season.types";
 import toast from "react-hot-toast";
+import axios from "axios";
+
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -66,10 +68,23 @@ const SeasonsModal = ({isOpen,onClose, onSuccess}:Props) => {
       discountAmount: "",
     });
 
-  } catch (error) {
-    console.error(error);
-    toast.error("Error saving season ❌");
+  } catch (error: unknown) {
+
+  console.error(error);
+
+  if (axios.isAxiosError(error)) {
+
+    const message =
+      error.response?.data?.message ||
+      "Error saving season";
+
+    toast.error(message);
+
+  } else {
+
+    toast.error("Unexpected error");
   }
+}
   
 };
 
