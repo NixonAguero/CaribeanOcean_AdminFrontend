@@ -161,6 +161,34 @@ export default function ManagePagesPage() {
               </button>
             </div>
           </article>
+          {/* Facilities card */}
+          <article className={styles.card} id="manage-page-card-facilities">
+            <div className={styles.thumbnailWrapper}>
+              <div className={styles.thumbnailPlaceholder}>
+                <svg
+                  className={styles.thumbnailPlaceholderIcon}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                >
+                  <path d="M12 2v20M2 12h20M12 4a8 8 0 0 1 8 8M12 4a8 8 0 0 0-8 8" />
+                  <circle cx="12" cy="12" r="10" />
+                </svg>
+              </div>
+            </div>
+            <div className={styles.cardBody}>
+              <p className={styles.cardName}>Facilities</p>
+              <button
+                id="edit-page-facilities-btn"
+                className={styles.editBtn}
+                onClick={() => navigate('/admin/facilities')}
+              >
+                Edit page content
+              </button>
+            </div>
+          </article>
         </div>
       </div>
     </div>

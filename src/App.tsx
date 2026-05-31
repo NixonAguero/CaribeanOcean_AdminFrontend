@@ -11,6 +11,7 @@ import AboutUsPage from './features/aboutUs/AboutUsPage';
 import ManagePagesPage from './features/managePages/ManagePagesPage';
 import AddPage from './features/adds/AddPage';
 import GalleryManagePage from './features/gallery/GalleryManagePage';
+import FacilitiesPage from './features/Facilities/components/FacilitiesPage';
 import LoginPage from './features/authentication/pages/LoginPage';
 import RegisterPage from './features/authentication/pages/RegisterPage';
 import ProtectedRoute from './features/authentication/components/ProtectedRoute';
@@ -56,6 +57,7 @@ function App() {
             <Route path="/admin" element={<Navigate to="/admin/rooms" replace />} />
             <Route path="" element={<Navigate to="/admin/rooms" replace />} />
             <Route path="*" element={<Navigate to="/admin/rooms" replace />} />
+            <Route path="/admin/facilities" element={<FacilitiesPage />} />
           </Route>
         </Route>
 
