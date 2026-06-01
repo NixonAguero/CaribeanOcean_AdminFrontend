@@ -1,5 +1,5 @@
 import apiClient from "../../../shared/services/apliClient";
-import type { Facility, CreateFacilityDTO, UpdateFacilityDTO, FacilityFormData } from "../types/facility";
+import type { Facility, CreateFacilityDTO, UpdateFacilityDTO } from "../types/facility";
 
 const buildCreateFacilityFormData = (data: CreateFacilityDTO): FormData => {
     const formData = new FormData();

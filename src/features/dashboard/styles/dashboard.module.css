@@ -1,0 +1,221 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.filterBar {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  margin-bottom: var(--space-5);
+  background: var(--admin-card-bg);
+  border: 1px solid rgba(201, 184, 120, 0.4);
+  border-radius: var(--radius-md);
+  flex-wrap: wrap;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 180px;
+  flex: 1 1 180px;
+}
+
+.field span {
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-ocean-deep);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.field input {
+  width: 100%;
+  min-height: 42px;
+  padding: 10px 14px;
+  background: var(--color-pearl-white);
+  border: 1px solid rgba(201, 184, 120, 0.6);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.field input:focus {
+  outline: none;
+  border-color: var(--color-caribbean-teal);
+  box-shadow: var(--shadow-focus);
+}
+
+.filterBar button {
+  min-height: 42px;
+}
+
+.kpiGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.kpiCard {
+  min-height: 124px;
+  padding: var(--space-5);
+  background: var(--admin-card-bg);
+  border: 1px solid rgba(201, 184, 120, 0.4);
+  border-radius: var(--radius-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.kpiCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--color-caribbean-teal);
+}
+
+.kpiCard[data-accent="night"]::before {
+  background: var(--color-golden-sand);
+}
+
+.kpiCard[data-accent="reservations"]::before {
+  background: var(--color-coral-sunset);
+}
+
+.kpiCard[data-accent="average"]::before {
+  background: var(--color-ocean-deep);
+}
+
+.kpiLabel {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.kpiValue {
+  margin: var(--space-3) 0 0;
+  color: var(--color-ocean-deep);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.1;
+  overflow-wrap: anywhere;
+}
+
+.chartGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+
+.chartCard {
+  min-width: 0;
+  padding: var(--space-5);
+  background: var(--admin-card-bg);
+  border: 1px solid rgba(201, 184, 120, 0.4);
+  border-radius: var(--radius-md);
+}
+
+.chartTitle {
+  margin: 0 0 var(--space-4);
+  color: var(--color-ocean-deep);
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.chartCanvas {
+  width: 100%;
+  height: 300px;
+  min-width: 0;
+}
+
+.emptyChart {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: var(--space-5);
+  background: var(--color-sand-white);
+  border: 1px dashed rgba(201, 184, 120, 0.8);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 14px;
+  text-align: center;
+}
+
+.stateMessage,
+.errorMessage {
+  padding: var(--space-5);
+  background: var(--admin-card-bg);
+  border: 1px solid rgba(201, 184, 120, 0.4);
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.errorMessage {
+  border-left: 3px solid var(--color-coral-sunset);
+  color: var(--color-coral-sunset);
+}
+
+@media (max-width: 1024px) {
+  .kpiGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .chartGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+  }
+
+  .filterBar {
+    padding: var(--space-4);
+  }
+
+  .filterBar button {
+    width: 100%;
+  }
+
+  .field {
+    min-width: 100%;
+  }
+}
+
+@media (max-width: 520px) {
+  .kpiGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .kpiValue {
+    font-size: 28px;
+  }
+
+  .chartCard {
+    padding: var(--space-4);
+  }
+}

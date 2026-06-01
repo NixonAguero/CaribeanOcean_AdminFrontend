@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import type { Facility, CreateFacilityDTO, UpdateFacilityDTO, FacilityFormData } from "../types/facility";
+import type { Facility, CreateFacilityDTO, UpdateFacilityDTO } from "../types/facility";
 import { facilityService } from "../services/facilityService";
 import { useAsyncState } from "../../../shared/hooks/useAsyncState";
 

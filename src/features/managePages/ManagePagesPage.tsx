@@ -189,6 +189,38 @@ export default function ManagePagesPage() {
               </button>
             </div>
           </article>
+          
+          {/* Locations card */}
+          <article className={styles.card} id="manage-page-card-locations">
+            <div className={styles.thumbnailWrapper}>
+              <div className={styles.thumbnailPlaceholder}>
+                <svg
+                  className={styles.thumbnailPlaceholderIcon}
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+              </div>
+            </div>
+            <div className={styles.cardBody}>
+              <p className={styles.cardName}>Locations</p>
+              <button
+                id="edit-page-locations-btn"
+                className={styles.editBtn}
+                onClick={() => navigate('/admin/locations')}
+              >
+                Edit page content
+              </button>
+            </div>
+          </article>
         </div>
       </div>
     </div>

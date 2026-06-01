@@ -16,6 +16,9 @@ import LoginPage from './features/authentication/pages/LoginPage';
 import RegisterPage from './features/authentication/pages/RegisterPage';
 import ProtectedRoute from './features/authentication/components/ProtectedRoute';
 import ManageRoomsPage from './features/rooms/ManageRoomsPage';
+import Dashboard from './features/dashboard/components/dashboard';
+import LocationsPage from './features/locations/LocationsPage';
+
 
 function App() {
   return (
@@ -52,15 +55,16 @@ function App() {
             <Route path="/admin/offers" element={<Offers />} />
             <Route path="/admin/hero" element={<HeroPage />} />
             <Route path="/admin/about-us" element={<AboutUsPage />} />
+            <Route path="/admin/locations" element={<LocationsPage />} />
             <Route path="/admin/advertising" element={<AddPage />} />
             <Route path="/admin/gallery" element={<GalleryManagePage />} />
+            <Route path="/admin/facilities" element={<FacilitiesPage />} />
+            <Route path="/admin/dashboard" element={<Dashboard />} />
             <Route path="/admin" element={<Navigate to="/admin/rooms" replace />} />
             <Route path="" element={<Navigate to="/admin/rooms" replace />} />
             <Route path="*" element={<Navigate to="/admin/rooms" replace />} />
-            <Route path="/admin/facilities" element={<FacilitiesPage />} />
           </Route>
         </Route>
-
         <Route path="*" element={<Navigate to="/admin/login" replace />} />
       </Routes>
 

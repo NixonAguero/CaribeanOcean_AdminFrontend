@@ -12,4 +12,5 @@ export const navLinks: NavLink[] = [
     { to: "/admin/offers", label: "Offers" },
     { to: "/admin/advertising", label: "Advertising" },
     { to: "/admin/season",             label: "Seasons" },
+    { to: "/admin/dashboard",             label: "Dashboard" },
 ];
