@@ -19,6 +19,7 @@ import ManageRoomsPage from './features/rooms/ManageRoomsPage';
 import Dashboard from './features/dashboard/components/dashboard';
 import LocationsPage from './features/locations/LocationsPage';
 
+import HotelContactsPage from './features/HotelContact/HotelContactPage';
 
 function App() {
   return (
@@ -63,6 +64,7 @@ function App() {
             <Route path="/admin" element={<Navigate to="/admin/rooms" replace />} />
             <Route path="" element={<Navigate to="/admin/rooms" replace />} />
             <Route path="*" element={<Navigate to="/admin/rooms" replace />} />
+            <Route path="/admin/HotelContact" element={<HotelContactsPage />} />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/admin/login" replace />} />
