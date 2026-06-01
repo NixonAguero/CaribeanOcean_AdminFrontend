@@ -117,7 +117,6 @@ function LocationsPage() {
                         id="locations-subtitle-input"
                         value={subtitle}
                         onChange={(e) => setSubtitle(e.target.value)}
-                        required
                         disabled={isSaving}
                       />
                     </div>
