@@ -12,6 +12,15 @@ interface Props {
   contact: HotelContact;
 }
 
+const contactTypes = [
+  "whatsapp",
+  "calls",
+  "email",
+  "instagram",
+  "tikTok",
+  "facebook",
+];
+
 const UpdateContactModal = ({
   isOpen,
   onClose,
@@ -35,6 +44,17 @@ const UpdateContactModal = ({
       [name]: value,
     }));
   };
+
+
+
+  const handleTypeChange = (
+  e: React.ChangeEvent<HTMLSelectElement>
+) => {
+  setFormData((prev) => ({
+    ...prev,
+    type: e.target.value,
+  }));
+};
 
   const handleSubmit = async (
     e: React.FormEvent
@@ -94,12 +114,19 @@ const UpdateContactModal = ({
           <div className="form-group">
             <label>Type</label>
 
-            <input
-              type="text"
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-            />
+            <select
+            name="type"
+            value={formData.type}
+            onChange={handleTypeChange}
+              >
+            <option value="">Select a type</option>
+
+             {contactTypes.map((type) => (
+              <option key={type} value={type}>
+               {type}
+               </option>
+                    ))}
+              </select>
           </div>
 
           <div className="form-group">

@@ -1,9 +1,16 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import "./CreateModal.css";
-
 import { createContact } from "../services/HotelContact.services";
 
+const contactTypes = [
+  "whatsapp",
+  "calls",
+  "email",
+  "instagram",
+  "tikTok",
+  "facebook",
+];
 interface Props {
   isOpen: boolean;
   onClose: () => void;
@@ -32,6 +39,14 @@ const CreateContactModal = ({
       [name]: value,
     }));
   };
+  const handleTypeChange = (
+  e: React.ChangeEvent<HTMLSelectElement>
+) => {
+  setFormData((prev) => ({
+    ...prev,
+    type: e.target.value,
+  }));
+};
 
   const handleSubmit = async (
     e: React.FormEvent
@@ -94,13 +109,19 @@ const CreateContactModal = ({
           <div className="form-group">
             <label>Type:  </label>
 
-            <input
-              type="text"
-              name="type"
-              value={formData.type}
-              onChange={handleChange}
-              placeholder="Email, Phone..."
-            />
+           <select
+            name="type"
+            value={formData.type}
+            onChange={handleTypeChange}
+              >
+            <option value="">Select a type</option>
+
+             {contactTypes.map((type) => (
+              <option key={type} value={type}>
+               {type}
+               </option>
+                    ))}
+              </select>
           </div>
 
           <div className="form-group">
