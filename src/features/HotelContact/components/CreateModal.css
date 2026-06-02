@@ -1,4 +1,4 @@
-/* 🌑 Fondo oscuro difuminado */
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -12,7 +12,7 @@
   z-index: 999;
 }
 
-/* 📦 Contenedor del modal */
+
 .modal-content {
   background: #ffffff;
   border-radius: 16px;
@@ -52,7 +52,7 @@
   background-color: #082836;
 }
 
-/* ❌ botón cerrar */
+
 .close-btn {
   position: absolute;
   top: 12px;
@@ -69,7 +69,7 @@
   color: #111;
 }
 
-/* 🧾 título */
+
 .modal-content h2 {
  font-family: 'Cormorant Garamond', serif;
   color: #0C3D52;
@@ -77,20 +77,35 @@
   margin: 0;
 }
 
-/* formulario */
+
 .season-form {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-/* inputs */
+
 .season-form input {
   padding: 10px 12px;
   border-radius: 8px;
   border: 1px solid #d1d5db;
   font-size: 14px;
   transition: 0.2s;
+}
+
+.season-form select{
+  width: 50%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background-color: #fff;
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+
 }
 
 .season-form input:focus {

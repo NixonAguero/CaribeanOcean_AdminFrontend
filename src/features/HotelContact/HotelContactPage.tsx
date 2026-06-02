@@ -179,6 +179,7 @@ const HotelContactsPage = () => {
 
       {selectedContact && (
         <UpdateContactModal
+         key={selectedContact.id}
           isOpen={isUpdateOpen}
           onClose={() =>
             setIsUpdateOpen(false)
