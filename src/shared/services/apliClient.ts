@@ -16,6 +16,9 @@ apiClient.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`;
   }
 
+  // Enviar la pantalla actual en cada petición
+  config.headers["X-Screen"] = window.location.pathname;
+
   return config;
 });
 
