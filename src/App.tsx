@@ -20,6 +20,7 @@ import Dashboard from './features/dashboard/components/dashboard';
 import LocationsPage from './features/locations/LocationsPage';
 
 import HotelContactsPage from './features/HotelContact/HotelContactPage';
+import ActivityLogPage from './features/activityLog/ActivityLogPage';
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
             <Route path="" element={<Navigate to="/admin/rooms" replace />} />
             <Route path="*" element={<Navigate to="/admin/rooms" replace />} />
             <Route path="/admin/HotelContact" element={<HotelContactsPage />} />
+            <Route path="/admin/activity-log" element={<ActivityLogPage />} />
           </Route>
         </Route>
         <Route path="*" element={<Navigate to="/admin/login" replace />} />

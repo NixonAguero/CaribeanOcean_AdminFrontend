@@ -1,0 +1,544 @@
+/* ============================================
+   Activity Log — Caribbean Ocean Admin
+   Design tokens: Ocean Deep #0C3D52 | Teal #1D9E75
+   Fonts: Cormorant Garamond (titles) | Montserrat (UI) | Lato (body)
+   ============================================ */
+
+/* Page container — casi todo el viewport (40px de margen a cada lado)
+   para que las 8 columnas de la tabla entren sin scroll */
+.al-page {
+  width: calc(100vw - 240px);
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  box-sizing: border-box;
+  padding: 40px;
+  min-height: 100vh;
+  font-family: 'Lato', sans-serif;
+}
+
+/* Header */
+.al-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.al-page-title {
+  font-family: 'Cormorant Garamond', serif;
+  color: #0C3D52;
+  font-size: 2.5rem;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.al-subtitle {
+  font-family: 'Lato', sans-serif;
+  color: #6B7280;
+  font-size: 0.9rem;
+  margin: 0.25rem 0 0 0;
+}
+
+.al-header-refresh {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.al-btn-refresh {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: #1D9E75;
+  color: white;
+  border: none;
+  padding: 0.65rem 1.25rem;
+  border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.al-btn-refresh:hover:not(:disabled) {
+  background-color: #178a64;
+  transform: translateY(-1px);
+}
+
+.al-btn-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ── Filter Panel ──────────────────────────── */
+.al-filter-panel {
+  background-color: #FDFCFA;
+  border-radius: 8px;
+  border: 1px solid #E8E3D9;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.al-filter-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.al-filter-title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #0C3D52;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.al-filter-active-badge {
+  background-color: #1D9E75;
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 30px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.al-filter-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.al-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.85rem;
+}
+
+.al-filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.al-filter-label {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #0C3D52;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.al-filter-input {
+  border: 1px solid #D1CAC0;
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+  background-color: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.al-filter-input:focus {
+  border-color: #1D9E75;
+  box-shadow: 0 0 0 3px rgba(29, 158, 117, 0.12);
+}
+
+.al-filter-input::placeholder {
+  color: #A8A29E;
+}
+
+/* Date input cleanup */
+.al-filter-input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.al-filter-actions {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.al-btn-apply {
+  background-color: #0C3D52;
+  color: white;
+  border: none;
+  padding: 0.65rem 1.4rem;
+  border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.25s ease, transform 0.2s ease;
+}
+
+.al-btn-apply:hover:not(:disabled) {
+  background-color: #082836;
+  transform: translateY(-1px);
+}
+
+.al-btn-apply:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.al-btn-clear {
+  background-color: transparent;
+  color: #6B7280;
+  border: 1px solid #D1CAC0;
+  padding: 0.6rem 1.2rem;
+  border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.al-btn-clear:hover:not(:disabled) {
+  color: #0C3D52;
+  border-color: #0C3D52;
+}
+
+.al-btn-clear:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ── Table ─────────────────────────────────── */
+.al-table-wrapper {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #E8E3D9;
+  overflow: hidden;
+}
+
+.al-table-container {
+  background-color: #FDFCFA;
+  width: 100%;
+}
+
+.al-table-meta {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #E8E3D9;
+  background-color: #F5F0E8;
+}
+
+.al-record-count {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0C3D52;
+}
+
+.al-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.al-table thead {
+  background-color: #0C3D52;
+}
+
+.al-table th {
+  background-color: #0C3D52;
+  color: white;
+  padding: 0.75rem 0.65rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.al-table td {
+  padding: 0.75rem 0.65rem;
+  border-bottom: 1px solid #E8E3D9;
+  color: #333;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.85rem;
+  vertical-align: middle;
+}
+
+.al-table tbody tr {
+  transition: background-color 0.2s ease, transform 0.15s ease;
+}
+
+.al-table tbody tr:hover {
+  background-color: #F5F0E8;
+  transform: translateY(-1px);
+}
+
+.al-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Cell content styles */
+.al-id {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  color: #0C3D52;
+  font-size: 0.85rem;
+}
+
+.al-timestamp {
+  font-size: 0.82rem;
+  color: #555;
+  white-space: nowrap;
+}
+
+.al-username {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-weight: 600;
+  color: #0C3D52;
+}
+
+.al-screen {
+  display: inline-block;
+  background-color: #F0EDE8;
+  color: #555;
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  font-family: 'Montserrat', monospace;
+}
+
+.al-details {
+  font-size: 0.82rem;
+  color: #555;
+}
+
+.al-no-details {
+  color: #BDBDBD;
+  font-size: 0.9rem;
+}
+
+/* ── Action Cell (código + nombre) ────────── */
+.al-action-cell {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.al-action-name {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: #0C3D52;
+  white-space: nowrap;
+}
+
+/* ── Action Code Badges ────────────────────── */
+.al-badge {
+  display: inline-block;
+  padding: 0.22rem 0.55rem;
+  border-radius: 30px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.al-badge--success {
+  background-color: #E1F5EE;
+  color: #0D7A55;
+}
+
+.al-badge--teal {
+  background-color: #D8F4EE;
+  color: #0A6B4A;
+}
+
+.al-badge--info {
+  background-color: #E0F0FF;
+  color: #1558A0;
+}
+
+.al-badge--warning {
+  background-color: #FFF3E0;
+  color: #B45309;
+}
+
+.al-badge--danger {
+  background-color: #FDECEA;
+  color: #B91C1C;
+}
+
+.al-badge--neutral {
+  background-color: #F3F4F6;
+  color: #374151;
+}
+
+/* ── Category Badges ───────────────────────── */
+.al-cat {
+  display: inline-block;
+  padding: 0.22rem 0.6rem;
+  border-radius: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.al-cat--auth {
+  background-color: #EDE9FE;
+  color: #6D28D9;
+}
+
+.al-cat--rooms {
+  background-color: #E0F2FE;
+  color: #0369A1;
+}
+
+.al-cat--booking {
+  background-color: #FEF3C7;
+  color: #92400E;
+}
+
+.al-cat--content {
+  background-color: #F0FDF4;
+  color: #166534;
+}
+
+.al-cat--marketing {
+  background-color: #FFF0F6;
+  color: #9D174D;
+}
+
+.al-cat--default {
+  background-color: #F3F4F6;
+  color: #374151;
+}
+
+/* ── IP Address ────────────────────────────── */
+.al-ip {
+  font-family: 'Montserrat', monospace;
+  font-size: 0.78rem;
+  color: #6B7280;
+  white-space: nowrap;
+}
+
+
+/* ── Loading State ─────────────────────────── */
+.al-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1rem;
+  color: #6B7280;
+  font-family: 'Lato', sans-serif;
+}
+
+.al-spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid #E8E3D9;
+  border-top-color: #1D9E75;
+  border-radius: 50%;
+  animation: al-spin 0.7s linear infinite;
+}
+
+@keyframes al-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Empty State ───────────────────────────── */
+.al-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 2rem;
+  gap: 1rem;
+  color: #9CA3AF;
+  font-family: 'Lato', sans-serif;
+  font-size: 0.95rem;
+  background-color: #FDFCFA;
+  border-radius: 8px;
+  border: 1px solid #E8E3D9;
+}
+
+/* ── Responsive ────────────────────────────── */
+@media (max-width: 1024px) {
+  .al-filter-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .al-page {
+    padding: 20px;
+  }
+
+  .al-page-title {
+    font-size: 1.8rem;
+  }
+
+  .al-filter-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .al-table th,
+  .al-table td {
+    padding: 0.65rem 0.75rem;
+    font-size: 0.82rem;
+  }
+
+  /* Ocultar IP y Screen en tablets/móvil */
+  .al-table th:nth-child(6),
+  .al-table td:nth-child(6),
+  .al-table th:nth-child(8),
+  .al-table td:nth-child(8) {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .al-filter-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .al-filter-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .al-btn-apply,
+  .al-btn-clear {
+    text-align: center;
+  }
+
+  /* En móvil pequeño también ocultar Category */
+  .al-table th:nth-child(5),
+  .al-table td:nth-child(5) {
+    display: none;
+  }
+}
+

@@ -43,6 +43,12 @@ export const navGroups: NavGroup[] = [
             { to: "/admin/HotelContact", label: "Hotel Contact" },
         ],
     },
+    {
+        label: "Activity Log",
+        links: [
+            { to: "/admin/activity-log", label: "Activity Log" },
+        ],
+    },
 ];
 
 /** Flat list for backward compatibility */
