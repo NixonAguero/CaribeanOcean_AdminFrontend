@@ -2,7 +2,7 @@ import axios from "axios";
 import { getToken } from "../../features/authentication/services/session.service";
 
 const analyticsClient = axios.create({
-  baseURL: "http://localhost:8091",
+  baseURL: "http://localhost:8000",
 });
 
 analyticsClient.interceptors.request.use((config) => {

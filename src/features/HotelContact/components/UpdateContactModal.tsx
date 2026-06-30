@@ -2,7 +2,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import "./CreateModal.css";
 
-import type { HotelContact } from "../types/hotelContact.types";
+import type { HotelContact } from "../types/HotelContact.types";
 import { updateContact } from "../services/HotelContact.services";
 
 interface Props {

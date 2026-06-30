@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import "./components/HotelContactPage.css";
-import { type HotelContact }  from "./types/hotelContact.types";
+import { type HotelContact }  from "./types/HotelContact.types";
 import { getAllContacts,deleteContact,} from "./services/HotelContact.services";
 import CreateContactModal from "./components/CreateContactModal";
 

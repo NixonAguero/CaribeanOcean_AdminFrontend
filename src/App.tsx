@@ -16,7 +16,7 @@ import LoginPage from './features/authentication/pages/LoginPage';
 import RegisterPage from './features/authentication/pages/RegisterPage';
 import ProtectedRoute from './features/authentication/components/ProtectedRoute';
 import ManageRoomsPage from './features/rooms/ManageRoomsPage';
-import Dashboard from './features/dashboard/components/dashboard';
+import Dashboard from './features/dashboard/components/Dashboard';
 import LocationsPage from './features/locations/LocationsPage';
 
 import HotelContactsPage from './features/HotelContact/HotelContactPage';

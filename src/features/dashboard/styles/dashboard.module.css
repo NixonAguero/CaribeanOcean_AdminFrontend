@@ -96,6 +96,18 @@
   background: var(--color-ocean-deep);
 }
 
+.kpiCard[data-accent="forecast"]::before {
+  background: var(--color-caribbean-teal);
+}
+
+.kpiCard[data-accent="peakDate"]::before {
+  background: var(--color-golden-sand);
+}
+
+.kpiCard[data-accent="peakOccupancy"]::before {
+  background: var(--color-coral-sunset);
+}
+
 .kpiLabel {
   margin: 0;
   color: var(--color-text-secondary);
@@ -144,6 +156,97 @@
   width: 100%;
   height: 300px;
   min-width: 0;
+}
+
+.occupancySection {
+  margin-top: var(--space-6);
+}
+
+.sectionHeader {
+  margin-bottom: var(--space-5);
+}
+
+.sectionTitle {
+  margin: 0 0 var(--space-2);
+  color: var(--color-ocean-deep);
+  font-family: var(--font-display);
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.sectionSubtitle {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+
+.occupancyKpiGrid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.occupancyChartCard {
+  margin-top: var(--space-5);
+}
+
+.occupancyChartCard .chartCanvas {
+  height: 360px;
+}
+
+.occupancyTooltip {
+  min-width: 220px;
+  padding: var(--space-3);
+  background: var(--admin-card-bg);
+  border: 1px solid rgba(201, 184, 120, 0.5);
+  border-radius: var(--radius-md);
+  color: var(--color-text-primary);
+  font-family: var(--font-body);
+  font-size: 13px;
+}
+
+.tooltipTitle {
+  margin: 0 0 var(--space-2);
+  color: var(--color-ocean-deep);
+  font-family: var(--font-ui);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.tooltipBlock + .tooltipBlock {
+  margin-top: var(--space-2);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-sand-white);
+}
+
+.tooltipRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.tooltipRow span {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tooltipRow strong {
+  color: var(--color-ocean-deep);
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.tooltipConfidence {
+  margin: var(--space-1) 0 0;
+  color: var(--color-text-secondary);
+  font-family: var(--font-body);
+  font-size: 12px;
 }
 
 .emptyChart {
