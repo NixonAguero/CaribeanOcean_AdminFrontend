@@ -48,13 +48,13 @@ const UpdateContactModal = ({
 
 
   const handleTypeChange = (
-  e: React.ChangeEvent<HTMLSelectElement>
-) => {
-  setFormData((prev) => ({
-    ...prev,
-    type: e.target.value,
-  }));
-};
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setFormData((prev) => ({
+      ...prev,
+      type: e.target.value,
+    }));
+  };
 
   const handleSubmit = async (
     e: React.FormEvent
@@ -115,18 +115,18 @@ const UpdateContactModal = ({
             <label>Type</label>
 
             <select
-            name="type"
-            value={formData.type}
-            onChange={handleTypeChange}
-              >
-            <option value="">Select a type</option>
+              name="type"
+              value={formData.type}
+              onChange={handleTypeChange}
+            >
+              <option value="">Select a type</option>
 
-             {contactTypes.map((type) => (
-              <option key={type} value={type}>
-               {type}
-               </option>
-                    ))}
-              </select>
+              {contactTypes.map((type) => (
+                <option key={type} value={type}>
+                  {type}
+                </option>
+              ))}
+            </select>
           </div>
 
           <div className="form-group">

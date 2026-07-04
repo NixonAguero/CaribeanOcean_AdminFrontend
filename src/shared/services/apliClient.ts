@@ -5,8 +5,8 @@ import {
 } from "../../features/authentication/services/session.service";
 
 const apiClient = axios.create({
-  baseURL: "http://localhost:5287/api",
-  
+  baseURL: "https://caribbeanoceanapi20260616221010-hwcmbkfzb7fqcthw.eastus-01.azurewebsites.net/api",
+
 });
 
 apiClient.interceptors.request.use((config) => {
