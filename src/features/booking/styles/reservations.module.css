@@ -3,119 +3,194 @@
 .tableContainer {
   background: var(--admin-card-bg);
   border-radius: var(--radius-md);
-  border: 1px solid rgba(201, 184, 120, 0.4); /* subtle golden border */
-  overflow: hidden;
+  border: 1px solid rgba(201, 184, 120, 0.4);
+  overflow-x: auto;
+  overflow-y: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  -webkit-overflow-scrolling: touch;
 }
 
 .table {
   width: 100%;
+  min-width: 1050px;
   border-collapse: collapse;
   text-align: left;
+  table-layout: auto;
 }
+
+/* ── Header ─────────────────────────────────────────────────── */
 
 .table th {
   background-color: var(--color-ocean-deep);
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   font-family: var(--font-ui);
-  font-size: 12px;
-  font-weight: 600;
+  font-size: 11px;
+  font-weight: 700;
   color: #ffffff;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.8px;
   border-bottom: 2px solid var(--admin-card-bg);
+  white-space: nowrap;
 }
 
+/* ── Cells ───────────────────────────────────────────────────── */
+
 .table td {
-  padding: var(--space-4) var(--space-5);
+  padding: var(--space-3) var(--space-4);
   font-family: var(--font-body);
   font-size: 14px;
   color: var(--color-text-primary);
-  border-bottom: 1px solid var(--color-sand-white);
+  border-bottom: 1px solid rgba(245, 240, 232, 0.8);
   vertical-align: middle;
 }
 
+/* CODE — monospace, fixed width, no wrap */
+.table th:nth-child(1),
+.table td:nth-child(1) {
+  width: 160px;
+  min-width: 140px;
+}
+
+/* GUEST */
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  width: 130px;
+  min-width: 110px;
+}
+
+/* SPACE */
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 130px;
+  min-width: 110px;
+}
+
+/* EMAIL */
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  width: 200px;
+  min-width: 160px;
+  word-break: break-all;
+}
+
+/* CHECK IN/OUT */
+.table th:nth-child(5),
+.table td:nth-child(5) {
+  width: 120px;
+  min-width: 110px;
+  white-space: nowrap;
+}
+
+/* TOTAL COST */
+.table th:nth-child(6),
+.table td:nth-child(6) {
+  width: 110px;
+  min-width: 90px;
+  white-space: nowrap;
+}
+
+/* ACTIONS */
+.table th:nth-child(7),
+.table td:nth-child(7) {
+  width: 220px;
+  min-width: 210px;
+}
+
+/* ── Rows ────────────────────────────────────────────────────── */
+
 .tableRow {
-  transition: background-color var(--transition-fast), transform var(--transition-fast);
+  transition: background-color var(--transition-fast);
 }
 
 .tableRow:hover {
-  background-color: #faf7f2; /* slightly darker than standard background */
-  transform: translateY(-1px);
+  background-color: rgba(245, 240, 232, 0.6);
 }
 
 .tableRow:last-child td {
   border-bottom: none;
 }
 
-/* Let's make the action cell use flex so the 3 buttons align perfectly */
-.actionsCell {
-  display: flex;
-  gap: var(--space-2);
-  justify-content: flex-end; /* Align buttons to the right */
+/* Subtle zebra stripe */
+.tableRow:nth-child(even) {
+  background-color: rgba(245, 240, 232, 0.3);
 }
 
-/* Distinctive formatting for the reservation code */
+.tableRow:nth-child(even):hover {
+  background-color: rgba(245, 240, 232, 0.7);
+}
+
+/* ── Actions cell ────────────────────────────────────────────── */
+
+.actionsCell {
+  display: flex;
+  gap: 6px;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: nowrap;
+}
+
+.actionsHeader {
+  text-align: left;
+}
+
+/* ── Highlights ──────────────────────────────────────────────── */
+
 .codeHighlight {
-  font-family: var(--font-ui);
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
   font-weight: 700;
   color: var(--color-coral-sunset);
+  letter-spacing: 0.3px;
+  word-break: break-all;
 }
 
 .priceHighlight {
-  font-weight: 600;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 700;
   color: var(--color-caribbean-teal);
+  white-space: nowrap;
 }
 
-/* Add inside src/features/booking/styles/reservations.module.css */
+/* ── Date cell ───────────────────────────────────────────────── */
 
-/* --- Clean Up Utility Classes --- */
+.dateCellText {
+  display: block;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  white-space: nowrap;
+}
 
-/* Empty state styling */
+/* ── Empty state ─────────────────────────────────────────────── */
+
 .emptyState {
   padding: 3rem;
   text-align: center;
 }
 
-/* Aligning the Actions header properly */
-.actionsHeader {
-  text-align: center;
-}
+/* ── Page Header Layout ──────────────────────────────────────── */
 
-/* Specific styling for the Check In/Out dates column */
-.dateCellText {
-  font-size: 13px;
-}
-css
-/* --- Page Header Layout --- */
 .headerFlex {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 
+/* ── Responsiveness ──────────────────────────────────────────── */
 
-/* --- Responsiveness para Reservations Page --- */
 @media (max-width: 768px) {
-  /* Apila el título y el botón de 'Check Availability' */
   .headerFlex {
     flex-direction: column;
     align-items: flex-start;
     gap: 1rem;
   }
-  
-  /* Hace que el botón ocupe todo el ancho en el celular */
+
   .headerFlex button {
     width: 100%;
   }
-  /* Permite que la tabla se deslice horizontalmente (Scroll) en móviles */
-  .tableContainer {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  
-  /* Evita que las columnas se aplasten demasiado */
+
   .table {
-    min-width: 700px;
+    min-width: 900px;
   }
 }
