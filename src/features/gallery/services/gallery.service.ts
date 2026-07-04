@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:5287/api/gallery";
+import apiClient from "../../../shared/services/apliClient";
 
 export interface GalleryImage {
   id: number;
@@ -16,38 +16,29 @@ export interface GalleryResponse {
 
 export const galleryService = {
   getGallery: async (): Promise<GalleryResponse> => {
-    const res = await fetch(BASE_URL);
-    if (!res.ok) throw new Error("Failed to fetch gallery");
-    return res.json();
+    const { data } = await apiClient.get<GalleryResponse>("/Gallery");
+    return data;
   },
 
   addImage: async (image: File, alt: string, adminId: number): Promise<void> => {
     const form = new FormData();
     form.append("image", image);
     form.append("Alt", alt);
-    const res = await fetch(`${BASE_URL}?adminId=${adminId}`, {
-      method: "POST",
-      body: form,
+    await apiClient.post(`/Gallery?adminId=${adminId}`, form, {
+      headers: { "Content-Type": "multipart/form-data" },
     });
-    console.log("Add image response:", res);
-    if (!res.ok) throw new Error("Failed to add image");
   },
 
   updateImage: async (imageId: number, newImage: File, alt: string, adminId: number): Promise<void> => {
     const form = new FormData();
     form.append("newImage", newImage);
     form.append("Alt", alt);
-    const res = await fetch(`${BASE_URL}/${imageId}?adminId=${adminId}`, {
-      method: "PUT",
-      body: form,
+    await apiClient.put(`/Gallery/${imageId}?adminId=${adminId}`, form, {
+      headers: { "Content-Type": "multipart/form-data" },
     });
-    if (!res.ok) throw new Error("Failed to update image");
   },
 
   deleteImage: async (imageId: number, adminId: number): Promise<void> => {
-    const res = await fetch(`${BASE_URL}/${imageId}?adminId=${adminId}`, {
-      method: "DELETE",
-    });
-    if (!res.ok) throw new Error("Failed to delete image");
+    await apiClient.delete(`/Gallery/${imageId}?adminId=${adminId}`);
   },
 };

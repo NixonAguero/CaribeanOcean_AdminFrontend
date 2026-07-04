@@ -19,7 +19,6 @@ export const navGroups: NavGroup[] = [
         label: "Rooms",
         links: [
             { to: "/admin/rooms",              label: "Manage Rooms" },
-            { to: "/admin/room-availability",  label: "Room Availability" },
             { to: "/admin/status",             label: "Today's Status" },
         ],
     },
@@ -42,6 +41,12 @@ export const navGroups: NavGroup[] = [
         links: [
             { to: "/admin/pages",        label: "Manage Pages" },
             { to: "/admin/HotelContact", label: "Hotel Contact" },
+        ],
+    },
+    {
+        label: "Activity Log",
+        links: [
+            { to: "/admin/activity-log", label: "Activity Log" },
         ],
     },
 ];
